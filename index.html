@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>CC-AMI Flight App</title>
+<meta name="application-name" content="CC-AMI">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="CC-AMI">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0f172a">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAIAAADdvvtQAAAEDUlEQVR4nO3dQZITORCG0YKYPbODM8D9j8IdWHIEFiZ6jGn3uP2rpJT03r7bZdXnrHQERH/49PnrAc/6OPoCmJuAiAiIiICICIiIgIgIiIiAiAiIiICICIiIgIgIiIiAiAiIiICICIiIgIgIiIiAiAiIiICICIiIgIgIiIiAiAiIiICICIiIgP7Hzx/fR19CaQIiIiAiAnrL5fnlKfYGAREREBEBEREQEQHddb0726PvERARAREREBEBERHQ6/7emu3RrxIQEQERERARARER0Cvu7cv26L8JiIiAiAiIiICICOjW25uyPfqGgIgIiIiAiAiIiID+8MiObI++JiAiAiIiICICIiKg/zy+HdujXwiIiICICIiIgIgI6Lf37sX26AsBEREQEQERERARAR3HsxuxPfoQECEBEREQEQEREVC0C9ujBUREQEQERERARAREZPeA8q9Rm38R2z0gQgIiIiAiAiKydUCt9t+d9+itAyInICICIiIgIvsG1Hbz3XaP3jcgmhAQEQERERCRTQM6Y+fdc4/eNCBaERARAREREJEdAzpv291wj94xIBoSEBEBEfnw6fPX0dfQT7cd5d8v3/q80HAbTaCeG+4+2/QWE2jg7Vx+FK0/gcYOg+VH0coTqNTNW3UULTuBStVz1LueVhacQMVv1WKjaLUJVLyeY4YrfJd1JtB0N2aNUbRCQNOlc232jKZ/hE1dzzH/9U88gWY/+huTjqJZJ9Bi9RzTvqP5JtCkB/24uUbRZBNo+XqO2d7jNAH9/PG9w8k+8unvMCH6vNkm5niEzXKazdV/nFWfQD0/i4/frW73tf4oKh1Qz7N7bxM9Z0Plhoo+wjof2aWGd73oEz+SK/hEqziBKn/gxip4MrUCGvLITz7W/UdCta2oyiNs1KG8FPDEBSQ/20SFJ1qJCVTqIzWRCuc2OKCxA7nVJ3jgJBj+RBsZ0Nh3fn3Xn7uS658a+zQZeJJjAhr+uTnjfg9vaMiRDgiowpN7Vf3Ptuu3sCLp3IyK8Kra/rZWuo3DfhNok5Ot8NX66HjaPQIavvG86HN36zTU4dhPD6hIOvcs/2e/z768EwOqM3gueg6GIkPo4tQbcVZApdI5RtzRUg0dp92R9t/CqqVz3L+XDS+1w0u00rbsxhOo4Hlxo+09ajaByqbTbTZMNIQumoyif/JfcVHtkV/H2idT4p9zMK9NA/L3wlrZNCBaERCRHQPy13oa2jEgGhIQke0COvsps9tTbLuAaKvKfyxkUiYQEQERERARAREREBEBEREQEQERERARAREREBEBEREQEQERERARAREREBEBEREQEQERERARAREREBEBEREQEQERERARAREREBEBEREQEQERERARAREREBEBEfkFal9ki6ZhfBoAAAAASUVORK5CYII=">
+<rect width='192' height='192' rx='38' fill='%230f172a'/><text y='135' x='96' font-size='110' text-anchor='middle'>✈</text></svg>">
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAIAAADdvvtQAAAEDUlEQVR4nO3dQZITORCG0YKYPbODM8D9j8IdWHIEFiZ6jGn3uP2rpJT03r7bZdXnrHQERH/49PnrAc/6OPoCmJuAiAiIiICICIiIgIgIiIiAiAiIiICICIiIgIgIiIiAiAiIiICICIiIgIgIiIiAiAiIiICICIiIgIgIiIiAiAiIiICICIiIgP7Hzx/fR19CaQIiIiAiAnrL5fnlKfYGAREREBEBEREQEQHddb0726PvERARAREREBEBERHQ6/7emu3RrxIQEQERERARARER0Cvu7cv26L8JiIiAiAiIiICICOjW25uyPfqGgIgIiIiAiAiIiID+8MiObI++JiAiAiIiICICIiKg/zy+HdujXwiIiICICIiIgIgI6Lf37sX26AsBEREQEQERERARAR3HsxuxPfoQECEBEREQEQEREVC0C9ujBUREQEQERERARAREZPeA8q9Rm38R2z0gQgIiIiAiAiKydUCt9t+d9+itAyInICICIiIgIvsG1Hbz3XaP3jcgmhAQEQERERCRTQM6Y+fdc4/eNCBaERARAREREJEdAzpv291wj94xIBoSEBEBEfnw6fPX0dfQT7cd5d8v3/q80HAbTaCeG+4+2/QWE2jg7Vx+FK0/gcYOg+VH0coTqNTNW3UULTuBStVz1LueVhacQMVv1WKjaLUJVLyeY4YrfJd1JtB0N2aNUbRCQNOlc232jKZ/hE1dzzH/9U88gWY/+huTjqJZJ9Bi9RzTvqP5JtCkB/24uUbRZBNo+XqO2d7jNAH9/PG9w8k+8unvMCH6vNkm5niEzXKazdV/nFWfQD0/i4/frW73tf4oKh1Qz7N7bxM9Z0Plhoo+wjof2aWGd73oEz+SK/hEqziBKn/gxip4MrUCGvLITz7W/UdCta2oyiNs1KG8FPDEBSQ/20SFJ1qJCVTqIzWRCuc2OKCxA7nVJ3jgJBj+RBsZ0Nh3fn3Xn7uS658a+zQZeJJjAhr+uTnjfg9vaMiRDgiowpN7Vf3Ptuu3sCLp3IyK8Kra/rZWuo3DfhNok5Ot8NX66HjaPQIavvG86HN36zTU4dhPD6hIOvcs/2e/z768EwOqM3gueg6GIkPo4tQbcVZApdI5RtzRUg0dp92R9t/CqqVz3L+XDS+1w0u00rbsxhOo4Hlxo+09ajaByqbTbTZMNIQumoyif/JfcVHtkV/H2idT4p9zMK9NA/L3wlrZNCBaERCRHQPy13oa2jEgGhIQke0COvsps9tTbLuAaKvKfyxkUiYQEQERERARAREREBEBEREQEQERERARAREREBEBEREQEQERERARAREREBEBEREQEQERERARAREREBEBEREQEQERERARAREREBEBEREQEQERERARAREREBEBEfkFal9ki6ZhfBoAAAAASUVORK5CYII=">
+<style>
+:root {
+  --bg: #0f172a;
+  --bg2: #1e293b;
+  --bg3: #334155;
+  --surface: #1e293b;
+  --border: #334155;
+  --text: #f1f5f9;
+  --text2: #94a3b8;
+  --accent: #38bdf8;
+  --accent2: #0ea5e9;
+  --green: #22c55e;
+  --green-d: #166534;
+  --red: #ef4444;
+  --red-d: #7f1d1d;
+  --orange: #f97316;
+  --yellow: #eab308;
+  --mono: 'Courier New', 'Menlo', 'Monaco', 'Consolas', monospace;
+  --raj: 'Arial Narrow', 'Impact', system-ui, sans-serif;
+  --sans: -apple-system, 'BlinkMacSystemFont', 'Segoe UI', system-ui, sans-serif;
+  --r: 10px;
+}
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html, body { height:100%; overflow:hidden; background:var(--bg); color:var(--text); font-family:var(--sans); }
+
+/* ── BOTTOM NAV ── */
+#app { display:flex; flex-direction:column; height:100%; }
+#nav {
+  display:flex; background:#0a1120; border-top:1px solid var(--border);
+  padding:0; padding-bottom:env(safe-area-inset-bottom);
+  flex-shrink:0;
+}
+.nav-btn {
+  flex:1; display:flex; flex-direction:column; align-items:center;
+  justify-content:center; padding:10px 4px 8px; gap:4px;
+  background:none; border:none; color:var(--text2); cursor:pointer;
+  font-family:var(--raj); font-size:0.65rem; font-weight:600;
+  letter-spacing:0.06em; text-transform:uppercase; transition:color 0.2s;
+}
+.nav-btn .ico { font-size:1.4rem; line-height:1; }
+.nav-btn.active { color:var(--accent); }
+.nav-btn.active .ico { filter: drop-shadow(0 0 6px var(--accent)); }
+
+/* ── PAGES ── */
+#pages { flex:1; overflow:hidden; position:relative; }
+.page { position:absolute; inset:0; overflow-y:auto; display:none; padding:16px; padding-bottom:24px; -webkit-overflow-scrolling:touch; }
+.page.active { display:block; }
+
+/* ── HEADER CARD ── */
+.page-header {
+  background: linear-gradient(135deg, var(--bg2) 0%, #0c1a2e 100%);
+  border:1px solid var(--border); border-radius:var(--r);
+  padding:16px 18px 14px; margin-bottom:14px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.page-title { font-family:var(--raj); font-size:1.3rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; }
+.page-sub { font-family:var(--mono); font-size:0.7rem; color:var(--text2); margin-top:3px; letter-spacing:0.1em; }
+.page-icon { font-size:2rem; }
+
+/* ── CARDS ── */
+.card {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--r); margin-bottom:12px; overflow:hidden;
+}
+.card-header {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:13px 16px; background:rgba(255,255,255,0.03);
+  border-bottom:1px solid var(--border);
+}
+.card-title { font-family:var(--raj); font-weight:700; font-size:0.95rem; letter-spacing:0.06em; text-transform:uppercase; }
+.card-body { padding:14px 16px; }
+
+/* ── FORM ELEMENTS ── */
+.field { margin-bottom:14px; }
+.field:last-child { margin-bottom:0; }
+label { display:block; font-size:0.78rem; color:var(--text2); margin-bottom:5px; font-family:var(--raj); font-weight:600; letter-spacing:0.06em; text-transform:uppercase; }
+input[type=number], input[type=text], select {
+  width:100%; background:var(--bg); border:1px solid var(--border);
+  border-radius:6px; padding:11px 14px; color:var(--text);
+  font-family:var(--mono); font-size:1rem; outline:none;
+  -webkit-appearance:none; appearance:none;
+}
+input:focus, select:focus { border-color:var(--accent); }
+select option { background:var(--bg2); }
+
+.row-2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.row-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; }
+
+/* ── BUTTONS ── */
+.btn {
+  width:100%; padding:13px; border:none; border-radius:8px;
+  font-family:var(--raj); font-weight:700; font-size:1rem;
+  letter-spacing:0.08em; text-transform:uppercase; cursor:pointer;
+  transition:all 0.15s; margin-top:4px;
+}
+.btn-primary { background:var(--accent2); color:#fff; }
+.btn-primary:active { background:#0284c7; transform:scale(0.98); }
+.btn-danger { background:var(--red); color:#fff; }
+.btn-green { background:var(--green); color:#fff; }
+.btn-outline { background:transparent; border:1px solid var(--border); color:var(--text2); }
+.btn-sm { padding:8px 14px; font-size:0.8rem; width:auto; }
+
+/* ── RESULT BOX ── */
+.result-box {
+  background:var(--bg); border:1px solid var(--border); border-radius:8px;
+  padding:14px 16px; margin-top:12px;
+}
+.result-box.ok { border-color:var(--green); background:rgba(34,197,94,0.06); }
+.result-box.warn { border-color:var(--orange); background:rgba(249,115,22,0.06); }
+.result-box.danger { border-color:var(--red); background:rgba(239,68,68,0.08); }
+.result-label { font-size:0.72rem; color:var(--text2); font-family:var(--raj); font-weight:600; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:4px; }
+.result-value { font-family:var(--mono); font-size:1.4rem; color:var(--accent); }
+.result-value.big { font-size:2rem; }
+.result-value.green { color:var(--green); }
+.result-value.red { color:var(--red); }
+.result-value.orange { color:var(--orange); }
+.result-sub { font-size:0.8rem; color:var(--text2); margin-top:4px; }
+
+/* ── DATA TABLE ── */
+.data-table { width:100%; border-collapse:collapse; }
+.data-table td { padding:9px 10px; border-bottom:1px solid var(--border); font-size:0.88rem; }
+.data-table tr:last-child td { border-bottom:none; }
+.data-table td:first-child { color:var(--text2); font-family:var(--raj); font-weight:600; font-size:0.8rem; letter-spacing:0.05em; text-transform:uppercase; }
+.data-table td:last-child { font-family:var(--mono); color:var(--accent); text-align:right; font-weight:600; }
+.data-table td.red { color:var(--red) !important; }
+.data-table td.green { color:var(--green) !important; }
+.data-table td.orange { color:var(--orange) !important; }
+
+/* ── BADGE ── */
+.badge { display:inline-block; padding:3px 8px; border-radius:4px; font-family:var(--mono); font-size:0.72rem; font-weight:700; }
+.badge-green { background:rgba(34,197,94,0.15); color:var(--green); border:1px solid rgba(34,197,94,0.3); }
+.badge-red { background:rgba(239,68,68,0.15); color:var(--red); border:1px solid rgba(239,68,68,0.3); }
+.badge-orange { background:rgba(249,115,22,0.15); color:var(--orange); border:1px solid rgba(249,115,22,0.3); }
+.badge-blue { background:rgba(56,189,248,0.15); color:var(--accent); border:1px solid rgba(56,189,248,0.3); }
+
+/* ── TIMER ── */
+.timer-display {
+  text-align:center; font-family:var(--mono); font-size:3.5rem;
+  color:var(--accent); padding:20px 0; line-height:1;
+  text-shadow: 0 0 20px rgba(56,189,248,0.4);
+}
+.timer-display.running { color:var(--green); text-shadow: 0 0 20px rgba(34,197,94,0.4); }
+.timer-display.alert { color:var(--red); animation: blink 0.8s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.timer-row { display:flex; gap:8px; }
+.timer-row .btn { flex:1; }
+.alert-list { display:flex; flex-direction:column; gap:6px; margin-top:12px; }
+.alert-item {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:10px 14px; background:var(--bg); border:1px solid var(--border);
+  border-radius:6px; font-size:0.88rem;
+}
+.alert-item.triggered { border-color:var(--orange); background:rgba(249,115,22,0.08); }
+.alert-item.done { opacity:0.4; }
+
+/* ── CHECKLIST ── */
+.check-item {
+  display:flex; align-items:flex-start; gap:12px;
+  padding:12px 0; border-bottom:1px solid rgba(51,65,85,0.5);
+  cursor:pointer;
+}
+.check-item:last-child { border-bottom:none; }
+.chk-box {
+  width:26px; height:26px; border:2px solid var(--border); border-radius:6px;
+  flex-shrink:0; display:flex; align-items:center; justify-content:center;
+  font-size:0.8rem; color:transparent; transition:all 0.15s; background:var(--bg);
+}
+.check-item.done .chk-box { background:var(--green); border-color:var(--green); color:#fff; }
+.check-item.done .ck-label { text-decoration:line-through; color:var(--text2); }
+.check-item.done .ck-val { color:var(--green); }
+.ck-label { font-size:0.95rem; color:var(--text2); line-height:1.4; }
+.ck-val { font-family:var(--raj); font-weight:700; font-size:1rem; margin-top:2px; }
+.ck-val.red { color:var(--red); }
+.ck-val.green { color:var(--green); }
+
+/* Section collapse */
+.sec-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--r); margin-bottom:10px; overflow:hidden; }
+.sec-head { display:flex; align-items:center; justify-content:space-between; padding:13px 16px; cursor:pointer; user-select:none; }
+.sec-head:active { background:rgba(255,255,255,0.03); }
+.sec-title { font-family:var(--raj); font-weight:700; font-size:0.95rem; letter-spacing:0.06em; text-transform:uppercase; display:flex; align-items:center; gap:10px; }
+.sec-meta { display:flex; align-items:center; gap:8px; font-family:var(--mono); font-size:0.72rem; color:var(--text2); }
+.sec-toggle { transition:transform 0.25s; font-size:0.7rem; color:var(--text2); }
+.sec-card.open .sec-toggle { transform:rotate(180deg); }
+.sec-body { max-height:0; overflow:hidden; transition:max-height 0.35s ease; padding:0 16px; }
+.sec-card.open .sec-body { max-height:3000px; padding:2px 16px 14px; }
+.sec-card.emg { border-color:rgba(239,68,68,0.3); }
+.sec-card.emg .sec-head { background:rgba(239,68,68,0.05); }
+.sec-card.emg .sec-title { color:var(--red); }
+
+/* ── PROGRESS BAR ── */
+.prog-bar { height:4px; background:var(--bg3); border-radius:2px; overflow:hidden; margin-top:8px; }
+.prog-fill { height:100%; background:linear-gradient(90deg, var(--green), var(--accent)); border-radius:2px; transition:width 0.3s; }
+
+/* ── SEPARATOR ── */
+.sep { height:1px; background:var(--border); margin:12px 0; }
+.section-label { font-family:var(--raj); font-size:0.72rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--text2); margin-bottom:8px; }
+
+/* ── WIND CALC ── */
+.wind-rose { text-align:center; padding:8px 0; }
+.wind-result-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.wind-result-item { background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:12px; text-align:center; }
+.wind-result-item .wlabel { font-size:0.7rem; color:var(--text2); font-family:var(--raj); font-weight:600; letter-spacing:0.08em; text-transform:uppercase; }
+.wind-result-item .wval { font-family:var(--mono); font-size:1.4rem; margin-top:4px; }
+
+/* ── METAR ── */
+.metar-box { background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:14px; font-family:var(--mono); font-size:0.85rem; line-height:1.7; word-break:break-all; color:var(--text2); min-height:60px; }
+.metar-field { display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid rgba(51,65,85,0.5); font-size:0.88rem; }
+.metar-field:last-child { border-bottom:none; }
+.metar-key { color:var(--text2); font-family:var(--raj); font-weight:600; font-size:0.78rem; letter-spacing:0.05em; text-transform:uppercase; }
+.metar-val { font-family:var(--mono); color:var(--accent); }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width:4px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:var(--border); border-radius:2px; }
+
+/* ── TABS ── */
+.tab-row { display:flex; gap:0; border-bottom:1px solid var(--border); margin-bottom:14px; overflow-x:auto; }
+.tab-btn-inner { font-family:var(--raj); font-weight:600; font-size:0.8rem; letter-spacing:0.08em; text-transform:uppercase; padding:10px 16px; background:none; border:none; border-bottom:2px solid transparent; color:var(--text2); cursor:pointer; white-space:nowrap; margin-bottom:-1px; transition:all 0.15s; }
+.tab-btn-inner.active { color:var(--accent); border-bottom-color:var(--accent); }
+.tab-btn-inner.emg.active { color:var(--red); border-bottom-color:var(--red); }
+.inner-page { display:none; }
+.inner-page.active { display:block; }
+
+/* ── RESET PROGRESS ── */
+.header-progress { display:flex; align-items:center; gap:8px; }
+.total-progress { font-family:var(--mono); font-size:0.78rem; color:var(--text2); }
+</style>
+
+<script>
+// PWA — Service Worker + Install prompt
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(() => console.log('SW OK'))
+      .catch(e => console.log('SW error:', e));
+  });
+}
+let deferredPrompt;
+
+// Detectar si ya está instalada como PWA
+const isInstalled = window.matchMedia('(display-mode: standalone)').matches
+  || window.navigator.standalone === true;
+
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  const btn = document.getElementById('install-btn');
+  if (btn) { btn.style.display = 'flex'; btn.style.opacity = '1'; }
+});
+
+window.addEventListener('appinstalled', () => {
+  const btn = document.getElementById('install-btn');
+  if (btn) btn.style.display = 'none';
+  deferredPrompt = null;
+});
+
+function installPWA() {
+  if (deferredPrompt) {
+    // Chrome Android — usar el prompt nativo
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(choice => {
+      deferredPrompt = null;
+      if (choice.outcome === 'dismissed') showInstallHelp();
+    });
+  } else {
+    // Fallback — instrucciones manuales
+    showInstallHelp();
+  }
+}
+
+function showInstallHelp() {
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const msg = isIOS
+    ? 'En Safari: toca el botón Compartir (cuadrado con flecha) → "Añadir a pantalla de inicio"'
+    : 'En Chrome: toca los 3 puntos ⋮ (arriba a la derecha) → "Instalar app" o "Añadir a pantalla de inicio"';
+  alert('📲 Instalar CC-AMI\n\n' + msg);
+}
+
+// Mostrar botón instalar si no está ya instalada
+window.addEventListener('load', () => {
+  if (!isInstalled) {
+    setTimeout(() => {
+      const btn = document.getElementById('install-btn');
+      if (btn) { btn.style.display = 'flex'; btn.style.opacity = '1'; }
+    }, 1500);
+  }
+});
+</script>
+
+</head>
+<body>
+<div id="app">
+<div id="pages">
+
+<!-- ════════════════════════════════ CHECKLIST ════════════════════════════════ -->
+<div class="page active" id="pg-checklist">
+  <div class="page-header">
+    <div>
+      <div class="page-title">CC-AMI Checklist</div>
+      <div class="page-sub">EVEKTOR HARMONY LSA</div>
+      <div class="prog-bar" style="width:200px;margin-top:8px"><div class="prog-fill" id="cl-prog" style="width:0%"></div></div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+      <span class="total-progress" id="cl-label">0/0</span>
+      <button class="btn btn-outline btn-sm" onclick="resetChecklist()">↺ Reset</button>
+    </div>
+  </div>
+
+  <div class="tab-row">
+    <button class="tab-btn-inner active" onclick="showInner('cl','normal',this)">✈ Normal</button>
+    <button class="tab-btn-inner emg" onclick="showInner('cl','emg',this)">🚨 Emergency</button>
+  </div>
+
+  <!-- NORMAL -->
+  <div class="inner-page active" id="cl-normal">
+
+    <div class="sec-card open" data-sec="s1">
+      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">🔍 Before Turn On</div><div class="sec-meta"><span id="sp-s1">0/12</span><span class="sec-toggle">▼</span></div></div>
+      <div class="sec-body">
+        <div id="checks-s1">
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Walk around</div><div class="ck-val">Complete rev POH</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Weight & Balance</div><div class="ck-val">Check</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Documents</div><div class="ck-val red">A.R.O.W</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel</div><div class="ck-val">Quantity, drain</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fluids</div><div class="ck-val">Oil, Coolant, brake</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Canopy</div><div class="ck-val">Closed</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Seat Belts</div><div class="ck-val">ON Locked</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Flaps</div><div class="ck-val">0 Degrees</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Ignition OFF</div><div class="ck-val">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Switches</div><div class="ck-val">All OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Circuit Breakers</div><div class="ck-val">All IN</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Parking Brake</div><div class="ck-val">OFF</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-card" data-sec="s2">
+      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">🔧 Engine Start</div><div class="sec-meta"><span id="sp-s2">0/14</span><span class="sec-toggle">▼</span></div></div>
+      <div class="sec-body">
+        <div id="checks-s2">
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Master</div><div class="ck-val green">ON</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Selector</div><div class="ck-val red">LEFT</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Hobbs</div><div class="ck-val">Write down</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Gauge</div><div class="ck-val">Check level</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Pump</div><div class="ck-val green">ON</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Throttle</div><div class="ck-val">IDLE — pull back until end</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Choke</div><div class="ck-val">Pull back — Cold start ≤30°C</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Prop Area</div><div class="ck-val">Shout "LIBRE" and Check</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Beacon</div><div class="ck-val">If required</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Ignition Key</div><div class="ck-val red">START — 10 seg MAX, wait 2 min</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Oil Pressure</div><div class="ck-val">&gt;29 PSI</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Throttle Level</div><div class="ck-val">2000–2500 RPM</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">GEN, AUX GEN</div><div class="ck-val green">ON</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Choke</div><div class="ck-val">ON if necessary</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Pump</div><div class="ck-val red">OFF</div></div></div>
+        </div>
+        <div style="margin-top:10px;padding:8px 10px;background:rgba(249,115,22,0.1);border-left:3px solid var(--orange);border-radius:0 4px 4px 0;font-size:0.82rem;color:#fed7aa">⚠ Idle MAX 2500 RPM bajo 50°C aceite</div>
+      </div>
+    </div>
+
+    <div class="sec-card" data-sec="s3">
+      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">🛤 Before Taxi</div><div class="sec-meta"><span id="sp-s3">0/6</span><span class="sec-toggle">▼</span></div></div>
+      <div class="sec-body">
+        <div id="checks-s3">
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Avionics</div><div class="ck-val green">ON</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Auto Pilot</div><div class="ck-val green">ON</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Other Electrical</div><div class="ck-val">If required</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Transponder</div><div class="ck-val">STAND BY</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Radio</div><div class="ck-val">Tuning & Adjusting</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Selector</div><div class="ck-val">RIGHT (1 min) → LEFT</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-card" data-sec="s4">
+      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">⚙️ Run Up — C.I.G.A.R.R.S.</div><div class="sec-meta"><span id="sp-s4">0/9</span><span class="sec-toggle">▼</span></div></div>
+      <div class="sec-body">
+        <div id="checks-s4">
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Control Flights</div><div class="ck-val">Free, Clean and Normal</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Instruments</div><div class="ck-val">Altimeter adjust</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Gas (Fuel Selector)</div><div class="ck-val red">LEFT</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Altitude / TRIM</div><div class="ck-val">TRIM neutral</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Radios</div><div class="ck-val">SET</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Run Up — Oil Temp</div><div class="ck-val">&gt;50°C</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Parking Brake</div><div class="ck-val">SET</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">RPM Check</div><div class="ck-val">4000rpm, &lt;300 drop, 120 mag diff — Carb Heat — Instruments</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Safety</div><div class="ck-val">Seat belts ✓ — Canopy CLOSED</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-card" data-sec="s5">
+      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">🛫 Before Entering Runway</div><div class="sec-meta"><span id="sp-s5">0/10</span><span class="sec-toggle">▼</span></div></div>
+      <div class="sec-body">
+        <div id="checks-s5">
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Lights — Beacon</div><div class="ck-val green">ON</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Landing Lights</div><div class="ck-val red">ON</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Transponder</div><div class="ck-val">ALT</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Screen swap — CHECK</div><div class="ck-val">Breakers, switches, instruments</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Choke</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Selector</div><div class="ck-val red">LEFT</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Pump</div><div class="ck-val red">ON</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Flaps</div><div class="ck-val red">15° (first pos)</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Parking Brake</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Pattern</div><div class="ck-val red">CHECK</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-card" data-sec="s6">
+      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">🚀 Climb & Cruise</div><div class="sec-meta"><span id="sp-s6">0/8</span><span class="sec-toggle">▼</span></div></div>
+      <div class="sec-body">
+        <div id="checks-s6">
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Throttle</div><div class="ck-val">5500 RPM</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Airspeed climb</div><div class="ck-val">54–62 kts</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Flaps</div><div class="ck-val">0° (&gt;150 ft)</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Pump</div><div class="ck-val red">OFF 1000 ft AGL</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Engine Instruments</div><div class="ck-val">Monitor & review</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Cruise Throttle</div><div class="ck-val">4300–5000 RPM</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Quantity</div><div class="ck-val">Monitor & review</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Descent Carb Heat</div><div class="ck-val">As needed below 4500 RPM</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-card" data-sec="s7">
+      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">🛬 Landing</div><div class="sec-meta"><span id="sp-s7">0/11</span><span class="sec-toggle">▼</span></div></div>
+      <div class="sec-body">
+        <div id="checks-s7">
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Selector</div><div class="ck-val red">LEFT</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Pump</div><div class="ck-val green">ON</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Carb Heat</div><div class="ck-val green">ON</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Approach Speed</div><div class="ck-val">59 kts</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Flaps</div><div class="ck-val">15°</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Landing Lights</div><div class="ck-val green">ON</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Final Flaps</div><div class="ck-val">30–50°</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Final Airspeed</div><div class="ck-val">48 kts</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Carb Heat on Final</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Post Landing — Fuel Pump</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Post Landing — Flaps / XPDR</div><div class="ck-val">0° / STBY</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-card" data-sec="s8">
+      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">⏹ Shut Down</div><div class="sec-meta"><span id="sp-s8">0/10</span><span class="sec-toggle">▼</span></div></div>
+      <div class="sec-body">
+        <div id="checks-s8">
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Throttle</div><div class="ck-val">IDLE</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Avionics</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Other Electrical</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Outside Lights</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Ignition Key</div><div class="ck-val red">OFF (1 seg)</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Beacon</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Master</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Selector</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Canopy</div><div class="ck-val">Cerrada</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Pitot Tube</div><div class="ck-val">Enfundado</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding:10px 12px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);border-radius:8px;margin-bottom:10px;font-size:0.84rem;color:#fca5a5;line-height:1.55">
+      <strong>⚠ NOTA 1:</strong> Mantener despejado entre asientos — cinturones no deben interferir flaps.<br>
+      <strong>⚠ NOTA 2:</strong> Siempre despegar y aterrizar con selector de combustible en <strong>LEFT</strong>.
+    </div>
+
+  </div><!-- end cl-normal -->
+
+  <!-- EMERGENCY -->
+  <div class="inner-page" id="cl-emg">
+    <div style="padding:10px 14px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);border-radius:8px;margin-bottom:12px;font-size:0.83rem;color:#fca5a5">🚨 Mantén el control de la aeronave. Estos son procedimientos de referencia.</div>
+
+    <div class="sec-card emg" data-sec="e1">
+      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">⚠️ Engine Failure — Take Off</div><div class="sec-meta"><span id="sp-e1">0/7</span><span class="sec-toggle">▼</span></div></div>
+      <div class="sec-body">
+        <div id="checks-e1">
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Airspeed (15° flap)</div><div class="ck-val red">55 Kts</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Airspeed (0° flap)</div><div class="ck-val red">59 Kts</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Throttle</div><div class="ck-val red">IDLE</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Flaps</div><div class="ck-val red">As needed</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Selector</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Ignition</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Master / Canopy</div><div class="ck-val red">OFF / UNLOCK</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-card emg" data-sec="e2">
+      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">✈️ Engine Failure — In Flight</div><div class="sec-meta"><span id="sp-e2">0/8</span><span class="sec-toggle">▼</span></div></div>
+      <div class="sec-body">
+        <div id="checks-e2">
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Vglide</div><div class="ck-val red">59 KIAS</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Heading</div><div class="ck-val red">Emergency landing site</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Pump</div><div class="ck-val red">ON</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Selector</div><div class="ck-val red">Check tanks</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Carb Heat</div><div class="ck-val red">ON (pull)</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Throttle</div><div class="ck-val">Back, IDLE</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Ignition</div><div class="ck-val red">START</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Choke</div><div class="ck-val">As needed</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-card emg" data-sec="e3">
+      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">🔴 Engine Power Off — Landing</div><div class="sec-meta"><span id="sp-e3">0/10</span><span class="sec-toggle">▼</span></div></div>
+      <div class="sec-body">
+        <div id="checks-e3">
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">MAYDAY</div><div class="ck-val red">121.50 MHz</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Vglide</div><div class="ck-val red">59 KIAS</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Short Final</div><div class="ck-val red">48 kts</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Flaps</div><div class="ck-val red">50°</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Throttle</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Pump</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Master</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Selector</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Ignition</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Canopy</div><div class="ck-val red">UNLOCK</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-card emg" data-sec="e4">
+      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">🔥 Engine Fire — Ground / Flight</div><div class="sec-meta"><span id="sp-e4">0/6</span><span class="sec-toggle">▼</span></div></div>
+      <div class="sec-body">
+        <div id="checks-e4">
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Selector</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Throttle</div><div class="ck-val red">FULL</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Ignition</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Master</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">En vuelo: Vents</div><div class="ck-val red">CLOSED</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Extinguisher / Action</div><div class="ck-val red">USE / Emergency landing</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-card emg" data-sec="e5">
+      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">⚡ Electrical Fire — In Flight</div><div class="sec-meta"><span id="sp-e5">0/4</span><span class="sec-toggle">▼</span></div></div>
+      <div class="sec-body">
+        <div id="checks-e5">
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Master</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Vents</div><div class="ck-val red">OPEN</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Extinguisher</div><div class="ck-val red">USE</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Action</div><div class="ck-val red">LAND</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div><!-- end cl-emg -->
+</div><!-- end pg-checklist -->
+
+<!-- ════════════════════════════════ TOOLS ════════════════════════════════ -->
+<div class="page" id="pg-tools">
+  <div class="page-header">
+    <div><div class="page-title">Flight Tools</div><div class="page-sub">CC-AMI · EV-97</div></div>
+    <div class="page-icon">🛠</div>
+  </div>
+
+  <div class="tab-row">
+    <button class="tab-btn-inner active" onclick="showInner('tl','fuel',this)">⛽ Fuel</button>
+    <button class="tab-btn-inner" onclick="showInner('tl','wind',this)">💨 Viento</button>
+    <button class="tab-btn-inner" onclick="showInner('tl','wb',this);initWB()">⚖️ W&B</button>
+    <button class="tab-btn-inner" onclick="showInner('tl','perf',this)">📐 Perf</button>
+    <button class="tab-btn-inner" onclick="showInner('tl','conv',this)">🔁 Conv</button>
+  </div>
+
+  <!-- FUEL CALCULATOR -->
+  <div class="inner-page active" id="tl-fuel">
+    <div class="card">
+      <div class="card-header"><span class="card-title">⛽ Calculadora de Combustible</span></div>
+      <div class="card-body">
+
+        <div class="row-2">
+          <div class="field">
+            <label>Combustible a bordo (l)</label>
+            <input type="number" id="f-fuel" value="106" step="1" min="0" max="118" oninput="calcFuel()">
+          </div>
+          <div class="field">
+            <label>Reserva mínima (l)</label>
+            <input type="number" id="f-reserve" value="11" step="1" min="0" max="38" oninput="calcFuel()">
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Potencia</label>
+          <select id="f-power" onchange="calcFuel()">
+            <option value="55">55% MCP — 4300 RPM</option>
+            <option value="65" selected>65% MCP — 4800 RPM</option>
+            <option value="75">75% MCP — 5000 RPM</option>
+            <option value="100">MCP — 5500 RPM</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Altitud de crucero (ft)</label>
+          <input type="number" id="f-alt" value="2180" step="100" min="0" max="10000" oninput="calcFuel()" placeholder="ej: 2180">
+        </div>
+
+        <div id="fuel-result"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="card-title" id="poh-ref-title">📊 Consumos POH — 2000 ft ISA</span></div>
+      <div class="card-body">
+        <table class="data-table" id="poh-ref-table">
+          <tr><td>55% / 4300 RPM</td><td>12.2 l/h · 73 kt IAS</td></tr>
+          <tr><td>65% / 4800 RPM</td><td>15.9 l/h · 87 kt IAS</td></tr>
+          <tr><td>75% / 5000 RPM</td><td>18.0 l/h · 93 kt IAS</td></tr>
+          <tr><td>MCP / 5500 RPM</td><td>25.0 l/h · 108 kt IAS</td></tr>
+          <tr><td>Capacidad total</td><td>120 litros</td></tr>
+          <tr><td>Capacidad usable</td><td>118 litros</td></tr>
+          <tr><td>Max tailwind</td><td class="orange">6 kts</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- WIND CALCULATOR -->
+  <div class="inner-page" id="tl-wind">
+    <div class="card">
+      <div class="card-header"><span class="card-title">💨 Componentes de Viento</span></div>
+      <div class="card-body">
+        <div class="row-2">
+          <div class="field">
+            <label>Dir. viento (°)</label>
+            <input type="number" id="w-wdir" placeholder="270" min="0" max="360">
+          </div>
+          <div class="field">
+            <label>Vel. viento (kts)</label>
+            <input type="number" id="w-wspd" placeholder="15" min="0" max="50">
+          </div>
+        </div>
+        <div class="field">
+          <label>Pista en uso (número, ej: 21 = 210°)</label>
+          <input type="number" id="w-rwy" placeholder="21" min="1" max="36">
+        </div>
+        <button class="btn btn-primary" onclick="calcWind()">Calcular</button>
+        <div id="wind-result"></div>
+        <div style="margin-top:12px;padding:8px 12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:0.8rem;color:var(--text2)">
+          ⚠ Max Crosswind CC-AMI: <span style="color:var(--orange);font-family:var(--mono);font-weight:700">18 kts</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEIGHT & BALANCE -->
+  <div class="inner-page" id="tl-wb">
+    <div class="card">
+      <div class="card-header"><span class="card-title">⚖️ Peso y Balance — CC-AMI</span></div>
+      <div class="card-body">
+
+        <!-- INPUTS -->
+        <div class="row-2">
+          <div class="field">
+            <label>Peso vacío (kg)</label>
+            <input type="number" id="wb-empty" value="351.9" step="0.1" min="300" max="420" oninput="calcWB()">
+          </div>
+          <div class="field">
+            <label>Piloto (kg)</label>
+            <input type="number" id="wb-pilot" placeholder="80" min="0" max="150" oninput="calcWB()">
+          </div>
+        </div>
+        <div class="row-2">
+          <div class="field">
+            <label>Co-Piloto (kg)</label>
+            <input type="number" id="wb-copilot" placeholder="0" min="0" max="150" oninput="calcWB()">
+          </div>
+          <div class="field">
+            <label>Equipaje (kg) ≤25</label>
+            <input type="number" id="wb-bag" value="0" min="0" max="25" oninput="calcWB()">
+          </div>
+        </div>
+        <div class="field">
+          <label>Combustible (litros) ≤120 l</label>
+          <input type="number" id="wb-fuel" value="80" step="1" min="0" max="120" oninput="calcWB()">
+        </div>
+
+        <!-- TABLA RESULTADOS -->
+        <div id="wb-table" style="margin:10px 0 4px">
+          <table style="width:100%;border-collapse:collapse;font-size:0.83rem">
+            <thead>
+              <tr style="border-bottom:1px solid var(--border)">
+                <th style="text-align:left;padding:5px 6px;font-family:var(--raj);font-size:0.72rem;letter-spacing:0.06em;color:var(--text2);font-weight:600">ÍTEM</th>
+                <th style="text-align:right;padding:5px 6px;font-family:var(--raj);font-size:0.72rem;letter-spacing:0.06em;color:var(--text2);font-weight:600">PESO (kg)</th>
+                <th style="text-align:right;padding:5px 6px;font-family:var(--raj);font-size:0.72rem;letter-spacing:0.06em;color:var(--text2);font-weight:600">BRAZO (m)</th>
+                <th style="text-align:right;padding:5px 6px;font-family:var(--raj);font-size:0.72rem;letter-spacing:0.06em;color:var(--text2);font-weight:600">MOMENTO</th>
+              </tr>
+            </thead>
+            <tbody id="wb-tbody"></tbody>
+            <tfoot id="wb-tfoot"></tfoot>
+          </table>
+        </div>
+
+        <!-- RESULTADO PRINCIPAL -->
+        <div id="wb-summary"></div>
+
+        <!-- GRÁFICO ENVELOPE -->
+        <div style="margin-top:12px">
+          <div style="font-family:var(--raj);font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text2);margin-bottom:6px">CG Envelope — CC-AMI</div>
+          <canvas id="wb-chart" style="width:100%;border-radius:6px;background:var(--bg);display:block"></canvas>
+          <div style="display:flex;gap:12px;margin-top:6px;flex-wrap:wrap">
+            <span style="font-size:0.72rem;color:var(--text2);display:flex;align-items:center;gap:4px"><span style="display:inline-block;width:16px;height:3px;background:#38bdf8;border-radius:2px"></span>Envelope CG</span>
+            <span style="font-size:0.72rem;color:var(--text2);display:flex;align-items:center;gap:4px"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#22c55e"></span>Punto actual (dentro)</span>
+            <span style="font-size:0.72rem;color:var(--text2);display:flex;align-items:center;gap:4px"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ef4444"></span>Fuera del envelope</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- PERFORMANCE -->
+  <div class="inner-page" id="tl-perf">
+    <div class="card">
+      <div class="card-header"><span class="card-title">📐 Performance</span></div>
+      <div class="card-body">
+        <div class="field">
+          <label>Altitud del campo (ft)</label>
+          <input type="number" id="p-alt" value="2180" step="100" oninput="calcPerf();calcLand()">
+        </div>
+        <div class="row-2">
+          <div class="field">
+            <label>Temperatura (°C)</label>
+            <input type="number" id="p-oat" value="15" oninput="calcPerf();calcLand()">
+          </div>
+          <div class="field">
+            <label>Superficie</label>
+            <select id="p-surf" onchange="calcPerf();calcLand()">
+              <option value="concrete">Concreto</option>
+              <option value="grass">Pasto</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label>Viento (kts, + frente / - cola) <span id="wind-auto-badge" style="display:none;font-size:0.7rem;color:var(--accent);font-weight:600;letter-spacing:0.04em">↗ desde calc. viento</span></label>
+          <input type="number" id="p-wind" value="0" step="1" oninput="document.getElementById('wind-auto-badge').style.display='none';calcPerf();calcLand()">
+        </div>
+
+        <!-- Despegue -->
+        <div style="font-family:var(--raj);font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text2);margin:14px 0 8px;padding-top:10px;border-top:1px solid var(--border)">🚀 Despegue — Flaps 15° · MTOW 600 kg</div>
+        <div id="perf-result"></div>
+
+        <!-- Aterrizaje -->
+        <div style="font-family:var(--raj);font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text2);margin:14px 0 8px;padding-top:10px;border-top:1px solid var(--border)">🛬 Aterrizaje — Flaps 50° · MTOW 600 kg</div>
+        <div id="land-result"></div>
+
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="card-title">📊 Velocidades CC-AMI</span></div>
+      <div class="card-body">
+        <table class="data-table">
+          <tr><td>Vr (rotación)</td><td>55 KIAS</td></tr>
+          <tr><td>Vx (mejor ángulo)</td><td>56 KIAS</td></tr>
+          <tr><td>Vy (mejor razón)</td><td>65 KIAS</td></tr>
+          <tr><td>Vapp (flap DN)</td><td>60–70 KIAS</td></tr>
+          <tr><td>Vglide</td><td>59 KIAS</td></tr>
+          <tr><td>Vs (flaps 0°)</td><td>42 KIAS</td></tr>
+          <tr><td>Vso (flaps 50°)</td><td>33 KIAS</td></tr>
+          <tr><td>Vfe (flaps)</td><td>70 KIAS</td></tr>
+          <tr><td>Vno (no exceed normal)</td><td>115 KIAS</td></tr>
+          <tr><td>Vne</td><td class="red">146 KIAS</td></tr>
+          <tr><td>Va</td><td>90 KIAS</td></tr>
+          <tr><td>Max Crosswind</td><td class="orange">18 kts</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONVERSOR -->
+  <div class="inner-page" id="tl-conv">
+    <div class="card">
+      <div class="card-header"><span class="card-title">🔁 Conversiones Rápidas</span></div>
+      <div class="card-body">
+        <div class="field">
+          <label>Valor a convertir</label>
+          <input type="number" id="cv-val" placeholder="0" oninput="calcConv()">
+        </div>
+        <div class="field">
+          <label>Tipo</label>
+          <select id="cv-type" onchange="calcConv()">
+            <optgroup label="Velocidad">
+              <option value="kt-kmh">Nudos → km/h</option>
+              <option value="kmh-kt">km/h → Nudos</option>
+              <option value="kt-mph">Nudos → mph</option>
+            </optgroup>
+            <optgroup label="Altitud/Distancia">
+              <option value="ft-m">Pies → Metros</option>
+              <option value="m-ft">Metros → Pies</option>
+              <option value="nm-km">NM → km</option>
+            </optgroup>
+            <optgroup label="Temperatura">
+              <option value="c-f">°C → °F</option>
+              <option value="f-c">°F → °C</option>
+            </optgroup>
+            <optgroup label="Combustible">
+              <option value="l-kg">Litros AVGAS → kg</option>
+              <option value="kg-l">kg AVGAS → Litros</option>
+              <option value="lb-kg">Lbs → Kg</option>
+              <option value="kg-lb">Kg → Lbs</option>
+            </optgroup>
+            <optgroup label="Presión">
+              <option value="inhg-hpa">inHg → hPa</option>
+              <option value="hpa-inhg">hPa → inHg</option>
+            </optgroup>
+          </select>
+        </div>
+        <div id="conv-result"></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end pg-tools -->
+
+<!-- ════════════════════════════════ TIMER ════════════════════════════════ -->
+<div class="page" id="pg-timer">
+  <div class="page-header">
+    <div><div class="page-title">Flight Timer</div><div class="page-sub">Alertas en vuelo</div></div>
+    <div class="page-icon">⏱</div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="timer-display" id="timer-display">00:00:00</div>
+      <div class="timer-row" style="margin-top:8px">
+        <button class="btn btn-green" id="timer-start-btn" onclick="timerToggle()">▶ START</button>
+        <button class="btn btn-outline" onclick="timerReset()">↺ Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">🔔 Alertas</span>
+      <button class="btn btn-outline btn-sm" onclick="addAlert()">+ Agregar</button>
+    </div>
+    <div class="card-body">
+      <div id="new-alert-form" style="display:none;margin-bottom:14px">
+        <div class="row-2">
+          <div class="field"><label>Min</label><input type="number" id="al-min" value="20" min="0" max="999"></div>
+          <div class="field"><label>Seg</label><input type="number" id="al-sec" value="0" min="0" max="59"></div>
+        </div>
+        <div class="field"><label>Mensaje</label><input type="text" id="al-msg" placeholder="Ej: Cambio de tanque"></div>
+        <div class="timer-row"><button class="btn btn-primary" onclick="saveAlert()">Guardar</button><button class="btn btn-outline" onclick="cancelAlert()">Cancelar</button></div>
+      </div>
+      <div class="alert-list" id="alert-list">
+        <div class="alert-item"><span>🔔 20:00 — Cambio de tanque</span><button class="btn btn-outline btn-sm" onclick="removeAlert(this,0)">✕</button></div>
+        <div class="alert-item"><span>🔔 55:00 — Revisión de combustible</span><button class="btn btn-outline btn-sm" onclick="removeAlert(this,1)">✕</button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="card-title">📝 Notas de Vuelo</span></div>
+    <div class="card-body">
+      <textarea id="flight-notes" style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:12px;color:var(--text);font-family:var(--mono);font-size:0.9rem;resize:none;height:130px;outline:none" placeholder="QNH: ___&#10;Frec: ___&#10;ATIS: ___&#10;Notas: ___"></textarea>
+    </div>
+  </div>
+</div><!-- end pg-timer -->
+
+<!-- ════════════════════════════════ REF ════════════════════════════════ -->
+<div class="page" id="pg-ref">
+  <div class="page-header">
+    <div><div class="page-title">Referencia Rápida</div><div class="page-sub">LIMITACIONES OFICIALES DGAC</div></div>
+    <div class="page-icon">📋</div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="card-title">⚡ Limitaciones Motor</span></div>
+    <div class="card-body">
+      <table class="data-table">
+        <tr><td>Potencia máxima</td><td>95 HP / BHP</td></tr>
+        <tr><td>RPM máxima</td><td class="red">5800 RPM</td></tr>
+        <tr><td>RPM estática máx</td><td>5500 RPM</td></tr>
+        <tr><td>RPM mínima</td><td>1400 RPM</td></tr>
+        <tr><td>Temp aceite máx</td><td class="red">230 °F</td></tr>
+        <tr><td>Temp aceite mín</td><td class="orange">190 °F</td></tr>
+        <tr><td>Presión aceite máx</td><td>102 PSI</td></tr>
+        <tr><td>Presión aceite mín</td><td class="red">12 PSI (29 PSI inicio)</td></tr>
+        <tr><td>Presión combustible mín</td><td class="red">2.2 PSI</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="card-title">⚖️ Pesos</span></div>
+    <div class="card-body">
+      <table class="data-table">
+        <tr><td>MTOW</td><td class="red">600 kg</td></tr>
+        <tr><td>Peso vacío aprox</td><td>364 kg</td></tr>
+        <tr><td>Equipaje máximo</td><td class="orange">25 kg</td></tr>
+        <tr><td>CG operacional</td><td>13–33 %MAC</td></tr>
+        <tr><td>CG vacío</td><td>14 ± 5 %MAC</td></tr>
+        <tr><td>MAC</td><td>1185.5 mm</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="card-title">⛽ Combustible</span></div>
+    <div class="card-body">
+      <table class="data-table">
+        <tr><td>Tipo</td><td>97 Oct / 100 LL / AVGAS UL91</td></tr>
+        <tr><td>Capacidad total</td><td>120 litros</td></tr>
+        <tr><td>Capacidad usable</td><td>118 litros</td></tr>
+        <tr><td>Densidad</td><td>0.72 kg/l</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="card-title">🔄 Maniobras</span></div>
+    <div class="card-body">
+      <table class="data-table">
+        <tr><td>Steep Turns</td><td>90 KIAS</td></tr>
+        <tr><td>Lazy Eights</td><td>90 KIAS</td></tr>
+        <tr><td>Chandelles</td><td>90 KIAS</td></tr>
+        <tr><td>Spin (flaps UP)</td><td class="orange">Slow deceleration</td></tr>
+      </table>
+    </div>
+  </div>
+</div><!-- end pg-ref -->
+
+</div><!-- end pages -->
+
+<!-- Bottom Nav -->
+<div id="nav">
+  <button class="nav-btn active" onclick="showPage('checklist',this)"><span class="ico">✅</span>Checklist</button>
+  <button class="nav-btn" onclick="showPage('tools',this)"><span class="ico">🛠</span>Tools</button>
+  <button class="nav-btn" onclick="showPage('timer',this)"><span class="ico">⏱</span>Timer</button>
+  <button class="nav-btn" onclick="showPage('ref',this)"><span class="ico">📋</span>Ref</button>
+
+<button id="install-btn" onclick="installPWA()" style="display:none;opacity:0;transition:opacity 0.3s;flex:1;flex-direction:column;align-items:center;justify-content:center;padding:10px 4px 8px;gap:4px;background:none;border:none;border-top:2px solid var(--accent);color:var(--accent);cursor:pointer;font-family:var(--raj);font-size:0.65rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;">
+  <span style="font-size:1.4rem;line-height:1">📲</span>Instalar
+</button>
+</div>
+</div><!-- end app -->
+
+<script>
+// ─── NAV ───
+function showPage(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('pg-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function showInner(prefix, id, btn) {
+  const parent = btn.closest('.page');
+  parent.querySelectorAll('.inner-page').forEach(p => p.classList.remove('active'));
+  parent.querySelectorAll('.tab-btn-inner').forEach(b => b.classList.remove('active'));
+  document.getElementById(prefix+'-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ─── CHECKLIST ───
+function ck(item) {
+  item.classList.toggle('done');
+  updateCLProgress();
+}
+
+function toggleSec(head) {
+  head.parentElement.classList.toggle('open');
+}
+
+function updateCLProgress() {
+  const all = document.querySelectorAll('#pg-checklist .check-item');
+  const done = document.querySelectorAll('#pg-checklist .check-item.done');
+  const pct = all.length ? Math.round(done.length/all.length*100) : 0;
+  document.getElementById('cl-prog').style.width = pct+'%';
+  document.getElementById('cl-label').textContent = done.length+'/'+all.length;
+
+  document.querySelectorAll('.sec-card[data-sec]').forEach(card => {
+    const id = card.dataset.sec;
+    const t = card.querySelectorAll('.check-item').length;
+    const d = card.querySelectorAll('.check-item.done').length;
+    const el = document.getElementById('sp-'+id);
+    if (el) el.textContent = d+'/'+t;
+  });
+}
+
+function resetChecklist() {
+  document.querySelectorAll('#pg-checklist .check-item').forEach(i => i.classList.remove('done'));
+  updateCLProgress();
+}
+
+updateCLProgress();
+
+// ─── FUEL CALC ───
+// ─── FUEL CALC ───
+// Datos exactos del POH Harmony LSA — Section 5.3.2 y 5.3.3
+const FUEL_ALT_STEPS = [0, 2000, 4000, 6000, 8000, 10000];
+const FUEL_DATA = {
+  //       consumo  IAS por altitud [0, 2000, 4000, 6000, 8000, 10000 ft]
+  55:  { lph: 12.2, ias: [76, 73, 70, 66, 63, 60], tas: [79, 78, 78, 78, 77, 77] },
+  65:  { lph: 15.9, ias: [91, 87, 84, 80, 77, 73], tas: [91, 91, 90, 90, 90, 89] },
+  75:  { lph: 18.0, ias: [97, 93, 89, 86, 82, 78], tas: [96, 96, 95, 95, 94, 94] },
+  100: { lph: 25.0, ias: [112,108,103, 99,  0,  0], tas: [109,108,108,107,  0,  0] },
+};
+
+function interpValue(arr, alt) {
+  const steps = FUEL_ALT_STEPS;
+  if (alt <= steps[0]) return arr[0];
+  if (alt >= steps[steps.length-1]) return arr[steps.length-1];
+  for (let i = 0; i < steps.length - 1; i++) {
+    if (alt >= steps[i] && alt <= steps[i+1]) {
+      const frac = (alt - steps[i]) / (steps[i+1] - steps[i]);
+      const v0 = arr[i], v1 = arr[i+1];
+      if (v0 === 0 || v1 === 0) return 0;
+      return v0 + frac * (v1 - v0);
+    }
+  }
+  return 0;
+}
+
+function calcFuel() {
+  const fuelTotal = parseFloat(document.getElementById('f-fuel').value) || 0;
+  const reserve   = parseFloat(document.getElementById('f-reserve').value) || 11;
+  const pct       = parseInt(document.getElementById('f-power').value) || 65;
+  const alt       = parseFloat(document.getElementById('f-alt').value) || 0;
+
+  const d    = FUEL_DATA[pct];
+  const lph  = d.lph;
+  const ias  = interpValue(d.ias, alt);
+  const tas  = interpValue(d.tas, alt);
+
+  // Nota de interpolación
+  const isExact = FUEL_ALT_STEPS.includes(alt);
+  let refNote = '';
+  if (!isExact) {
+    for (let i = 0; i < FUEL_ALT_STEPS.length - 1; i++) {
+      if (alt > FUEL_ALT_STEPS[i] && alt < FUEL_ALT_STEPS[i+1]) {
+        refNote = `<div style="font-size:0.73rem;color:var(--text2);margin-top:4px;font-family:var(--mono)">` +
+          `↕ Interpolado entre ${FUEL_ALT_STEPS[i]}ft (${d.ias[i]}kt) y ${FUEL_ALT_STEPS[i+1]}ft (${d.ias[i+1]}kt)</div>`;
+        break;
+      }
+    }
+  }
+
+  const available = Math.max(0, fuelTotal - reserve);
+  const endH      = lph > 0 ? available / lph : 0;
+  const hours     = Math.floor(endH);
+  const mins      = Math.round((endH - hours) * 60);
+  const rangeNM   = tas > 0 ? Math.round(tas * endH) : 0;
+  const rangeKM   = Math.round(rangeNM * 1.852);
+  const altLabel  = isExact ? `${alt} ft ISA` : `${alt} ft ISA (↕ interp.)`;
+
+  const pohRef  = { 55:'9h40', 65:'7h25', 75:'6h33', 100:'4h43' };
+  const pohNote = alt === 2000
+    ? `<div style="font-size:0.75rem;color:var(--text2);margin-top:6px">📖 POH ref (118l @ 2000ft): ${pohRef[pct]}</div>`
+    : '';
+
+  const usable = fuelTotal > 118 ? '<div style="color:var(--orange);font-size:0.78rem;margin-top:4px">⚠ Máx usable: 118 l</div>' : '';
+  const noFuel = available <= 0 ? '<div style="color:var(--red);font-size:0.82rem;margin-top:6px">⛔ Sin combustible útil — ajustar reserva</div>' : '';
+  const noData = ias === 0 ? '<div style="color:var(--orange);font-size:0.78rem;margin-top:4px">⚠ MCP no disponible sobre 6000ft en el POH</div>' : '';
+  const rpmLabel = { 55:'4300', 65:'4800', 75:'5000', 100:'5500' };
+  const pctLabel = pct === 100 ? 'MCP' : pct+'%';
+  const cls      = available > 15 ? 'ok' : available > 0 ? 'warn' : 'danger';
+  const col      = available > 15 ? 'var(--green)' : available > 0 ? 'var(--orange)' : 'var(--red)';
+
+  document.getElementById('fuel-result').innerHTML = `
+    <div class="result-box ${cls}" style="margin-top:12px">
+      <div style="font-size:0.75rem;color:var(--text2);margin-bottom:10px;font-family:var(--mono)">
+        ${pctLabel} · ${rpmLabel[pct]} RPM · ${lph} l/h · ${altLabel}
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:6px">
+        <div>
+          <div class="result-label">Comb. útil</div>
+          <div class="result-value" style="font-size:1.3rem;color:${col}">${available.toFixed(0)} l</div>
+          <div class="result-sub">reserva: ${reserve} l</div>
+        </div>
+        <div>
+          <div class="result-label">Autonomía</div>
+          <div class="result-value" style="font-size:1.3rem;color:${col}">${hours}h ${String(mins).padStart(2,'0')}m</div>
+          <div class="result-sub">${lph} l/h</div>
+        </div>
+        <div>
+          <div class="result-label">Vel. IAS</div>
+          <div class="result-value" style="font-size:1.1rem">${ias > 0 ? ias.toFixed(1)+' kt' : 'N/D'}</div>
+          <div class="result-sub">TAS: ${tas > 0 ? tas.toFixed(1)+' kt' : 'N/D'}</div>
+        </div>
+        <div>
+          <div class="result-label">Rango est.</div>
+          <div class="result-value" style="font-size:1.1rem">${rangeNM > 0 ? rangeNM+' NM' : '—'}</div>
+          <div class="result-sub">${rangeKM > 0 ? rangeKM+' km' : ''}</div>
+        </div>
+      </div>
+      ${refNote}${pohNote}${usable}${noFuel}${noData}
+    </div>`;
+
+  // Actualizar tabla de referencia con la altitud POH más cercana
+  updatePohRefTable(alt);
+}
+
+function updatePohRefTable(alt) {
+  const steps = FUEL_ALT_STEPS;
+  let nearest = steps[0], minDiff = Math.abs(alt - steps[0]);
+  for (const s of steps) { const d = Math.abs(alt-s); if(d<minDiff){minDiff=d;nearest=s;} }
+  const idx = steps.indexOf(nearest);
+  const lphArr = [12.2,15.9,18.0,25.0];
+  const pctArr = [55,65,75,100];
+  const titleEl = document.getElementById("poh-ref-title");
+  if (titleEl) {
+    const note = minDiff>0 ? " <span style='color:var(--accent);font-size:0.78rem'>(ref. m\u00e1s cercana a "+alt+"ft)</span>" : "";
+    titleEl.innerHTML = "\ud83d\udcca Consumos POH \u2014 " + nearest + " ft ISA" + note;
+  }
+  const table = document.getElementById("poh-ref-table");
+  if (!table) return;
+  pctArr.forEach((p,i) => {
+    const ias = FUEL_DATA[p].ias[idx];
+    const tas = FUEL_DATA[p].tas[idx];
+    const row = table.rows[i];
+    if (row) row.cells[1].textContent = lphArr[i]+" l/h  "+(ias>0?ias+" kt IAS / "+tas+" kt TAS":"N/D");
+  });
+}
+
+// ─── WIND CALC ───
+function calcWind() {
+  const wdir = parseFloat(document.getElementById('w-wdir').value);
+  const wspd = parseFloat(document.getElementById('w-wspd').value) || 0;
+  const rwyNum = parseFloat(document.getElementById('w-rwy').value);
+
+  if (isNaN(wdir) || isNaN(rwyNum)) {
+    document.getElementById('wind-result').innerHTML = `<div style="color:var(--text2);font-size:0.85rem;margin-top:8px">Ingresa dirección del viento y pista.</div>`;
+    return;
+  }
+
+  // Pista en heading real (pista 21 = 210°)
+  const rwyHdg = rwyNum <= 36 ? rwyNum * 10 : rwyNum;
+
+  // Ángulo entre viento y pista
+  // Viento "desde" 210° sobre pista con heading 210° → viento de frente → headwind
+  // angle = windDir - rwyHeading
+  let angle = (wdir - rwyHdg) * Math.PI / 180;
+
+  // Componente frente/cola: cos(angle)
+  // Si angle=0 (viento directo de frente) → cos=1 → headwind máximo ✓
+  // Si angle=180 (viento directo de cola) → cos=-1 → tailwind ✓
+  const hw = wspd * Math.cos(angle);   // + = headwind, - = tailwind
+  const xw = wspd * Math.sin(angle);   // + = desde la derecha, - = desde la izquierda
+
+  const hwAbs = Math.abs(hw).toFixed(1);
+  const xwAbs = Math.abs(xw).toFixed(1);
+  const hwLabel = hw >= 0 ? '⬆ FRENTE' : '⬇ COLA';
+  const hwColor = hw >= 0 ? 'var(--green)' : 'var(--orange)';
+  const xwSide  = xw >= 0 ? '➡ DERECHA' : '⬅ IZQUIERDA';
+  const xwColor = Math.abs(xw) > 18 ? 'var(--red)' : Math.abs(xw) > 12 ? 'var(--orange)' : 'var(--green)';
+
+  document.getElementById('wind-result').innerHTML = `
+    <div class="wind-result-grid" style="margin-top:12px">
+      <div class="wind-result-item">
+        <div class="wlabel">Frente / Cola</div>
+        <div class="wval" style="color:${hwColor}">${hwAbs} kts</div>
+        <div style="font-size:0.75rem;color:${hwColor};margin-top:2px">${hwLabel}</div>
+      </div>
+      <div class="wind-result-item">
+        <div class="wlabel">Viento Cruzado</div>
+        <div class="wval" style="color:${xwColor}">${xwAbs} kts</div>
+        <div style="font-size:0.75rem;color:${xwColor};margin-top:2px">${xwSide}</div>
+      </div>
+    </div>
+    <div style="margin-top:8px;padding:8px 12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:0.8rem;color:var(--text2);line-height:1.6">
+      Pista <strong style="color:var(--text)">${rwyNum <= 36 ? '0'+String(rwyNum).padStart(2,'0') : rwyNum}° (${rwyHdg}°)</strong> · 
+      Viento desde <strong style="color:var(--text)">${wdir}° a ${wspd} kts</strong>
+    </div>
+    ${Math.abs(xw) > 18 ? '<div style="color:var(--red);margin-top:8px;font-size:0.82rem;padding:8px;background:rgba(239,68,68,0.1);border-radius:6px">⛔ Viento cruzado supera el máximo de 18 kts</div>' : ''}
+    ${hw < 0 ? '<div style="color:var(--orange);margin-top:6px;font-size:0.82rem;padding:8px;background:rgba(249,115,22,0.08);border-radius:6px">⚠ Viento de cola — mayor distancia de despegue</div>' : ''}
+    <div style=\"margin-top:10px;padding:8px 12px;background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.25);border-radius:6px;font-size:0.8rem;color:var(--accent)\">✈ Enviado a Performance: <strong>${hw >= 0 ? '+' : ''}${hw.toFixed(1)} kt</strong></div>`;
+
+  // Auto-transferir viento frente/cola a calculadora de despegue
+  const perfWindInput = document.getElementById('p-wind');
+  if (perfWindInput) {
+    perfWindInput.value = parseFloat(hw.toFixed(1));
+    perfWindInput.style.borderColor = 'var(--accent)';
+    setTimeout(() => { perfWindInput.style.borderColor = ''; }, 2500);
+    // Mostrar badge de auto-llenado
+    const badge = document.getElementById('wind-auto-badge');
+    if (badge) badge.style.display = 'inline';
+    const pAlt = document.getElementById('p-alt');
+    const pOat = document.getElementById('p-oat');
+    if (pAlt && pAlt.value && pOat && pOat.value) { calcPerf(); calcLand(); }
+  }
+}
+
+// ─── WEIGHT & BALANCE ───
+// Datos exactos del Excel CC-AMI
+const WB = {
+  arms: { empty:0.158, pilot:0.489, copilot:0.489, bag:1.027, fuel:0.623 },
+  density: 0.719,   // kg/l AVGAS
+  mac: 1.1855,      // m
+  mtow: 600,        // kg
+  maxBag: 25,       // kg
+  maxFuel: 120,     // l
+  // Envelope del Excel (X=%MAC, Y=kg)
+  envelope: [
+    {x:20,   y:378},
+    {x:21.25,y:515},
+    {x:25.6, y:600},
+    {x:31,   y:600},
+    {x:31,   y:495},
+    {x:26.1, y:400},
+    {x:22,   y:378},
+    {x:20,   y:378}
+  ]
+};
+
+function pointInEnvelope(cgPct, weight) {
+  const poly = WB.envelope;
+  let inside = false;
+  for (let i=0, j=poly.length-1; i<poly.length; j=i++) {
+    const xi=poly[i].x, yi=poly[i].y, xj=poly[j].x, yj=poly[j].y;
+    const intersect = ((yi>weight) !== (yj>weight)) &&
+      (cgPct < (xj-xi)*(weight-yi)/(yj-yi)+xi);
+    if (intersect) inside = !inside;
+  }
+  return inside;
+}
+
+function calcWB() {
+  const empty   = parseFloat(document.getElementById('wb-empty').value)   || 351.9;
+  const pilot   = parseFloat(document.getElementById('wb-pilot').value)   || 0;
+  const copilot = parseFloat(document.getElementById('wb-copilot').value) || 0;
+  const bag     = parseFloat(document.getElementById('wb-bag').value)     || 0;
+  const fuelL   = parseFloat(document.getElementById('wb-fuel').value)    || 0;
+  const fuelKg  = fuelL * WB.density;
+
+  const items = [
+    { name:'Peso Vacío',    kg: empty,   arm: WB.arms.empty   },
+    { name:'Piloto',        kg: pilot,   arm: WB.arms.pilot   },
+    { name:'Co-Piloto',     kg: copilot, arm: WB.arms.copilot },
+    { name:'Equipaje',      kg: bag,     arm: WB.arms.bag     },
+    { name:`Combustible (${fuelL}l)`, kg: fuelKg, arm: WB.arms.fuel },
+  ];
+
+  const totalKg  = items.reduce((s,i) => s + i.kg, 0);
+  const totalMom = items.reduce((s,i) => s + i.kg * i.arm, 0);
+  const cgM      = totalKg > 0 ? totalMom / totalKg : 0;
+  const cgPct    = (cgM / WB.mac) * 100;
+  const inside   = pointInEnvelope(cgPct, totalKg);
+  const wtOk     = totalKg <= WB.mtow;
+  const bagOk    = bag <= WB.maxBag;
+  const fuelOk   = fuelL <= WB.maxFuel;
+  const allOk    = inside && wtOk && bagOk && fuelOk;
+
+  // Tabla
+  const tbody = document.getElementById('wb-tbody');
+  tbody.innerHTML = items.map(it => `
+    <tr style="border-bottom:1px solid rgba(51,65,85,0.4)">
+      <td style="padding:6px 6px;color:var(--text2)">${it.name}</td>
+      <td style="padding:6px 6px;text-align:right;font-family:var(--mono);color:var(--text)">${it.kg>0?it.kg.toFixed(2):'-'}</td>
+      <td style="padding:6px 6px;text-align:right;font-family:var(--mono);color:var(--text2)">${it.arm.toFixed(3)}</td>
+      <td style="padding:6px 6px;text-align:right;font-family:var(--mono);color:var(--accent)">${(it.kg*it.arm).toFixed(3)}</td>
+    </tr>`).join('');
+
+  const tfoot = document.getElementById('wb-tfoot');
+  tfoot.innerHTML = `
+    <tr style="border-top:2px solid var(--border)">
+      <td style="padding:7px 6px;font-family:var(--raj);font-weight:700;font-size:0.85rem">TOTAL</td>
+      <td style="padding:7px 6px;text-align:right;font-family:var(--mono);font-weight:700;color:${wtOk?'var(--green)':'var(--red)'}">${totalKg.toFixed(2)}</td>
+      <td style="padding:7px 6px;text-align:right;font-family:var(--mono);color:var(--text2)">${cgM.toFixed(4)}</td>
+      <td style="padding:7px 6px;text-align:right;font-family:var(--mono);font-weight:700;color:var(--accent)">${totalMom.toFixed(3)}</td>
+    </tr>`;
+
+  // Summary
+  const ptColor = inside ? 'var(--green)' : 'var(--red)';
+  document.getElementById('wb-summary').innerHTML = `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0 6px">
+      <div style="background:var(--bg);border:1px solid ${wtOk?'rgba(34,197,94,0.3)':'rgba(239,68,68,0.4)'};border-radius:8px;padding:10px;text-align:center">
+        <div style="font-size:0.7rem;color:var(--text2);font-family:var(--raj);font-weight:600;letter-spacing:0.08em;text-transform:uppercase">Peso Total</div>
+        <div style="font-family:var(--mono);font-size:1.3rem;color:${wtOk?'var(--green)':'var(--red)'};margin-top:3px">${totalKg.toFixed(1)} kg</div>
+        <div style="font-size:0.7rem;color:var(--text2);margin-top:2px">Máx: 600 kg</div>
+      </div>
+      <div style="background:var(--bg);border:1px solid ${inside?'rgba(34,197,94,0.3)':'rgba(239,68,68,0.4)'};border-radius:8px;padding:10px;text-align:center">
+        <div style="font-size:0.7rem;color:var(--text2);font-family:var(--raj);font-weight:600;letter-spacing:0.08em;text-transform:uppercase">CG %MAC</div>
+        <div style="font-family:var(--mono);font-size:1.3rem;color:${ptColor};margin-top:3px">${cgPct.toFixed(2)}%</div>
+        <div style="font-size:0.7rem;color:var(--text2);margin-top:2px">CG: ${cgM.toFixed(4)} m</div>
+      </div>
+    </div>
+    <div style="padding:10px 12px;border-radius:8px;background:${allOk?'rgba(34,197,94,0.08)':'rgba(239,68,68,0.1)'};border:1px solid ${allOk?'rgba(34,197,94,0.3)':'rgba(239,68,68,0.4)'};font-size:0.85rem;font-weight:600;color:${allOk?'var(--green)':'var(--red)'}">
+      ${allOk ? '✅ DENTRO DEL ENVELOPE — Vuelo autorizado' : '⛔ FUERA DEL ENVELOPE — Ajustar carga'}
+      ${!wtOk ? '<div style="font-size:0.78rem;margin-top:4px">• Excede MTOW 600 kg</div>' : ''}
+      ${!bagOk ? '<div style="font-size:0.78rem;margin-top:4px">• Equipaje excede 25 kg</div>' : ''}
+      ${!fuelOk ? '<div style="font-size:0.78rem;margin-top:4px">• Combustible excede 120 l</div>' : ''}
+      ${!inside && wtOk ? '<div style="font-size:0.78rem;margin-top:4px">• CG fuera del envelope permitido</div>' : ''}
+    </div>`;
+
+  drawEnvelope(cgPct, totalKg, inside);
+}
+
+function drawEnvelope(cgPct, totalKg, inside) {
+  const canvas = document.getElementById('wb-chart');
+  if (!canvas) return;
+  const dpr = window.devicePixelRatio || 1;
+  const W = canvas.offsetWidth || 320;
+  const H = Math.round(W * 0.65);
+  canvas.width  = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.height = H + 'px';
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  // Márgenes
+  const ml=44, mr=18, mt=16, mb=36;
+  const cw = W-ml-mr, ch = H-mt-mb;
+
+  // Rangos del gráfico
+  const xMin=17, xMax=34, yMin=340, yMax=650;
+  const toX = x => ml + (x-xMin)/(xMax-xMin)*cw;
+  const toY = y => mt + ch - (y-yMin)/(yMax-yMin)*ch;
+
+  // Fondo
+  ctx.fillStyle = '#0f172a';
+  ctx.fillRect(0, 0, W, H);
+
+  // Grid
+  ctx.strokeStyle = 'rgba(51,65,85,0.6)';
+  ctx.lineWidth = 0.5;
+  for (let x=18; x<=33; x+=2) {
+    ctx.beginPath(); ctx.moveTo(toX(x),mt); ctx.lineTo(toX(x),mt+ch); ctx.stroke();
+  }
+  for (let y=350; y<=640; y+=50) {
+    ctx.beginPath(); ctx.moveTo(ml,toY(y)); ctx.lineTo(ml+cw,toY(y)); ctx.stroke();
+  }
+
+  // Ejes
+  ctx.strokeStyle = '#475569'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(ml,mt); ctx.lineTo(ml,mt+ch); ctx.lineTo(ml+cw,mt+ch); ctx.stroke();
+
+  // Labels eje X
+  ctx.fillStyle = '#64748b'; ctx.font = `${9*dpr/dpr}px Share Tech Mono, monospace`; ctx.textAlign='center';
+  for (let x=18; x<=33; x+=2) {
+    ctx.fillText(x+'%', toX(x), mt+ch+14);
+  }
+
+  // Labels eje Y
+  ctx.textAlign='right';
+  for (let y=350; y<=640; y+=50) {
+    ctx.fillText(y, ml-5, toY(y)+3);
+  }
+
+  // Títulos ejes
+  ctx.fillStyle = '#94a3b8'; ctx.font = `${9*dpr/dpr}px Rajdhani, sans-serif`; ctx.textAlign='center';
+  ctx.fillText('% MAC', ml+cw/2, H-4);
+  ctx.save(); ctx.translate(10, mt+ch/2); ctx.rotate(-Math.PI/2);
+  ctx.fillText('Peso (kg)', 0, 0); ctx.restore();
+
+  // Zona dentro del envelope (relleno suave)
+  ctx.beginPath();
+  WB.envelope.forEach((p,i) => {
+    i===0 ? ctx.moveTo(toX(p.x), toY(p.y)) : ctx.lineTo(toX(p.x), toY(p.y));
+  });
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(56,189,248,0.07)';
+  ctx.fill();
+
+  // Envelope línea
+  ctx.beginPath();
+  WB.envelope.forEach((p,i) => {
+    i===0 ? ctx.moveTo(toX(p.x), toY(p.y)) : ctx.lineTo(toX(p.x), toY(p.y));
+  });
+  ctx.closePath();
+  ctx.strokeStyle = '#38bdf8'; ctx.lineWidth = 2; ctx.stroke();
+
+  // Punto actual
+  if (cgPct > 0 && totalKg > 0) {
+    const px = toX(cgPct), py = toY(totalKg);
+    const col = inside ? '#22c55e' : '#ef4444';
+
+    // Cruz
+    ctx.strokeStyle = col; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(px-10,py); ctx.lineTo(px+10,py); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(px,py-10); ctx.lineTo(px,py+10); ctx.stroke();
+
+    // Punto
+    ctx.beginPath(); ctx.arc(px, py, 6, 0, Math.PI*2);
+    ctx.fillStyle = col; ctx.fill();
+    ctx.strokeStyle = '#0f172a'; ctx.lineWidth = 2; ctx.stroke();
+
+    // Label
+    ctx.fillStyle = col; ctx.font = `bold ${9*dpr/dpr}px Share Tech Mono, monospace`;
+    ctx.textAlign = cgPct > 28 ? 'right' : 'left';
+    const lx = cgPct > 28 ? px-12 : px+12;
+    ctx.fillText(`${cgPct.toFixed(1)}% / ${totalKg.toFixed(0)}kg`, lx, py-8);
+  }
+}
+
+// Inicializar gráfico al abrir tab W&B
+function initWB() {
+  calcWB();
+  setTimeout(() => { const c = document.getElementById('wb-chart'); if(c) drawEnvelope(0,0,false); }, 100);
+}
+
+// ─── PERFORMANCE CALC ───
+// DESPEGUE: [alt_ft, concrete_run, concrete_50ft, grass_run, grass_50ft] — ISA conditions
+const perfData = {
+  concrete: [[0,690,1590],[2000,780,1790],[4000,870,2020],[6000,990,2280],[8000,1120,2570],[10000,1270,2920]],
+  grass:    [[0,800,1700],[2000,900,1910],[4000,1010,2160],[6000,1150,2430],[8000,1300,2750],[10000,1470,3120]]
+};
+
+// ATERRIZAJE: [alt_ft, concrete_run, concrete_50ft, grass_run, grass_50ft] — ISA conditions
+// Fuente: POH Section 5.2.4 — Flaps 50°, Motor idle, MTOW 1320 lbs
+const landData = {
+  concrete: [[0,590,1290],[2000,630,1370],[4000,660,1450],[6000,710,1540],[8000,750,1640],[10000,800,1750]],
+  grass:    [[0,530,1230],[2000,560,1300],[4000,600,1390],[6000,630,1470],[8000,670,1570],[10000,720,1670]]
+};
+
+function interpPerfTable(table, surf, alt) {
+  const d = table[surf];
+  if (alt <= d[0][0]) return { run: d[0][1], dist: d[0][2] };
+  if (alt >= d[d.length-1][0]) return { run: d[d.length-1][1], dist: d[d.length-1][2] };
+  for (let i = 0; i < d.length-1; i++) {
+    if (alt >= d[i][0] && alt <= d[i+1][0]) {
+      const frac = (alt - d[i][0]) / (d[i+1][0] - d[i][0]);
+      return {
+        run:  Math.round(d[i][1] + frac * (d[i+1][1] - d[i][1])),
+        dist: Math.round(d[i][2] + frac * (d[i+1][2] - d[i][2]))
+      };
+    }
+  }
+}
+
+function getSharedInputs() {
+  return {
+    alt:  parseFloat(document.getElementById('p-alt').value)  || 0,
+    oat:  parseFloat(document.getElementById('p-oat').value)  || 15,
+    surf: document.getElementById('p-surf').value,
+    wind: parseFloat(document.getElementById('p-wind').value) || 0
+  };
+}
+
+function buildPerfHTML(run, dist, isaTemp, tempDev, wind, windCorr, note) {
+  const col = 'var(--accent)';
+  const warnTemp = tempDev > 15
+    ? `<div style="color:var(--orange);font-size:0.78rem;margin-top:4px">⚠ Temp ${tempDev>0?'+':''}${tempDev.toFixed(0)}°C vs ISA — desempeño reducido</div>` : '';
+  const warnWind = wind < 0
+    ? `<div style="color:var(--orange);font-size:0.78rem;margin-top:4px">⚠ Viento de cola +${windCorr.toFixed(0)} ft</div>` : '';
+  return `
+    <div class="result-box ok">
+      <div style="font-size:0.74rem;color:var(--text2);margin-bottom:8px">
+        ISA: ${isaTemp.toFixed(1)}°C · Dev: ${tempDev>0?'+':''}${tempDev.toFixed(1)}°C
+        ${wind !== 0 ? ' · Viento: '+(wind>0?'+':'')+wind.toFixed(1)+' kt' : ''}
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div>
+          <div class="result-label">Carrera</div>
+          <div class="result-value" style="color:${col}">${run} ft</div>
+          <div class="result-sub">${Math.round(run*0.3048)} m</div>
+        </div>
+        <div>
+          <div class="result-label">Dist. sobre 50 ft</div>
+          <div class="result-value" style="color:${col}">${dist} ft</div>
+          <div class="result-sub">${Math.round(dist*0.3048)} m</div>
+        </div>
+      </div>
+      ${warnTemp}${warnWind}
+      <div style="font-size:0.72rem;color:var(--text2);margin-top:6px">${note}</div>
+    </div>`;
+}
+
+function calcPerf() {
+  const { alt, oat, surf, wind } = getSharedInputs();
+  const isaTemp  = 15 - (alt / 1000) * 1.98;
+  const tempDev  = oat - isaTemp;
+  let { run, dist } = interpPerfTable(perfData, surf, alt);
+
+  // Corrección temperatura: ~2% cada 5°C (POH no da tabla explícita, usa ISA ref)
+  const tempFactor = 1 + (tempDev / 5) * 0.02;
+  run  = Math.round(run  * tempFactor);
+  dist = Math.round(dist * tempFactor);
+
+  // Corrección viento despegue (POH 5.2.3): +4% por kt de cola, -5% por 2kt de frente
+  let windCorr = 0;
+  if (wind > 0) { // headwind — reducción
+    run  = Math.round(run  * (1 - 0.05 * (wind / 2)));
+    dist = Math.round(dist * (1 - 0.05 * (wind / 2)));
+  } else if (wind < 0) { // tailwind — aumento
+    windCorr = Math.abs(wind) * 0.04 * run;
+    run  = Math.round(run  * (1 + 0.04 * Math.abs(wind)));
+    dist = Math.round(dist * (1 + 0.04 * Math.abs(wind)));
+  }
+
+  document.getElementById('perf-result').innerHTML =
+    buildPerfHTML(run, dist, isaTemp, tempDev, wind, windCorr,
+      'POH §5.2.3 · Flaps 15° · Corrección viento: -5%/2kt frente · +4%/kt cola');
+}
+
+function calcLand() {
+  const { alt, oat, surf, wind } = getSharedInputs();
+  const isaTemp  = 15 - (alt / 1000) * 1.98;
+  const tempDev  = oat - isaTemp;
+  let { run, dist } = interpPerfTable(landData, surf, alt);
+
+  // Corrección temperatura
+  const tempFactor = 1 + (tempDev / 5) * 0.02;
+  run  = Math.round(run  * tempFactor);
+  dist = Math.round(dist * tempFactor);
+
+  // Corrección viento aterrizaje (POH 5.2.4): +4.5% por kt de cola
+  // Para viento de frente no hay factor explícito en el POH — usar -5%/2kt (conservador)
+  let windCorr = 0;
+  if (wind > 0) { // headwind
+    run  = Math.round(run  * (1 - 0.05 * (wind / 2)));
+    dist = Math.round(dist * (1 - 0.05 * (wind / 2)));
+  } else if (wind < 0) { // tailwind — POH: +4.5% por kt
+    windCorr = Math.abs(wind) * 0.045 * run;
+    run  = Math.round(run  * (1 + 0.045 * Math.abs(wind)));
+    dist = Math.round(dist * (1 + 0.045 * Math.abs(wind)));
+  }
+
+  document.getElementById('land-result').innerHTML =
+    buildPerfHTML(run, dist, isaTemp, tempDev, wind, windCorr,
+      'POH §5.2.4 · Flaps 50° · Motor idle · Corrección viento: +4.5%/kt cola');
+}
+
+// ─── CONVERTER ───
+const convMap = {
+  'kt-kmh': [v => v*1.852, 'kt','km/h'],
+  'kmh-kt': [v => v/1.852, 'km/h','kt'],
+  'kt-mph': [v => v*1.15078, 'kt','mph'],
+  'ft-m':   [v => v*0.3048, 'ft','m'],
+  'm-ft':   [v => v/0.3048, 'm','ft'],
+  'nm-km':  [v => v*1.852, 'NM','km'],
+  'c-f':    [v => v*9/5+32, '°C','°F'],
+  'f-c':    [v => (v-32)*5/9, '°F','°C'],
+  'l-kg':   [v => v*0.72, 'l AVGAS','kg'],
+  'kg-l':   [v => v/0.72, 'kg AVGAS','l'],
+  'lb-kg':  [v => v*0.4536, 'lbs','kg'],
+  'kg-lb':  [v => v/0.4536, 'kg','lbs'],
+  'inhg-hpa':[v => v*33.864, 'inHg','hPa'],
+  'hpa-inhg':[v => v/33.864, 'hPa','inHg'],
+};
+
+function calcConv() {
+  const val = parseFloat(document.getElementById('cv-val').value);
+  const type = document.getElementById('cv-type').value;
+  if (isNaN(val)) { document.getElementById('conv-result').innerHTML=''; return; }
+  const [fn, from, to] = convMap[type];
+  const res = fn(val);
+  document.getElementById('conv-result').innerHTML = `
+    <div class="result-box ok" style="margin-top:8px;display:flex;align-items:center;justify-content:space-between">
+      <div><span style="font-family:var(--mono);font-size:1rem;color:var(--text2)">${val} ${from}</span></div>
+      <div style="font-size:1.5rem;color:var(--border)">→</div>
+      <div><span style="font-family:var(--mono);font-size:1.4rem;color:var(--accent)">${res.toFixed(2)} ${to}</span></div>
+    </div>`;
+}
+
+// ─── TIMER ───
+let timerRunning = false, timerSecs = 0, timerInterval = null;
+const alerts = [
+  {secs: 1200, msg: 'Cambio de tanque', done: false},
+  {secs: 3300, msg: 'Revisión de combustible', done: false}
+];
+
+function pad(n) { return String(n).padStart(2,'0'); }
+
+function updateTimerDisplay() {
+  const h = Math.floor(timerSecs/3600);
+  const m = Math.floor((timerSecs%3600)/60);
+  const s = timerSecs%60;
+  const disp = document.getElementById('timer-display');
+  disp.textContent = pad(h)+':'+pad(m)+':'+pad(s);
+  
+  // Check alerts
+  let anyAlert = false;
+  alerts.forEach((al,i) => {
+    const item = document.querySelector(`#alert-list .alert-item:nth-child(${i+1})`);
+    if (timerSecs >= al.secs && !al.done) { 
+      al.done = true; 
+      if(item) item.classList.add('triggered');
+      anyAlert = true;
+    }
+  });
+  
+  disp.className = 'timer-display' + (timerRunning ? ' running' : '') + (anyAlert&&!disp.classList.contains('running')?' alert':'');
+}
+
+function timerToggle() {
+  if (timerRunning) {
+    clearInterval(timerInterval);
+    timerRunning = false;
+    document.getElementById('timer-start-btn').textContent = '▶ START';
+  } else {
+    timerInterval = setInterval(() => { timerSecs++; updateTimerDisplay(); }, 1000);
+    timerRunning = true;
+    document.getElementById('timer-start-btn').textContent = '⏸ PAUSE';
+  }
+  updateTimerDisplay();
+}
+
+function timerReset() {
+  clearInterval(timerInterval);
+  timerRunning = false;
+  timerSecs = 0;
+  alerts.forEach(a => a.done = false);
+  document.querySelectorAll('.alert-item').forEach(i => i.classList.remove('triggered','done'));
+  document.getElementById('timer-start-btn').textContent = '▶ START';
+  updateTimerDisplay();
+}
+
+function addAlert() {
+  document.getElementById('new-alert-form').style.display = 'block';
+}
+function cancelAlert() {
+  document.getElementById('new-alert-form').style.display = 'none';
+}
+function saveAlert() {
+  const min = parseInt(document.getElementById('al-min').value)||0;
+  const sec = parseInt(document.getElementById('al-sec').value)||0;
+  const msg = document.getElementById('al-msg').value || 'Alerta';
+  const totalSecs = min*60+sec;
+  alerts.push({secs: totalSecs, msg, done: false});
+  const li = document.createElement('div');
+  li.className = 'alert-item';
+  li.innerHTML = `<span>🔔 ${pad(min)}:${pad(sec)} — ${msg}</span><button class="btn btn-outline btn-sm" onclick="removeAlert(this,${alerts.length-1})">✕</button>`;
+  document.getElementById('alert-list').appendChild(li);
+  document.getElementById('new-alert-form').style.display = 'none';
+}
+function removeAlert(btn, idx) { btn.closest('.alert-item').remove(); }
+
+updateTimerDisplay();
+</script>
+</body>
+</html>
