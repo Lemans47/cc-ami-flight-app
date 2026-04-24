@@ -670,7 +670,7 @@ window.addEventListener('load', () => {
         <div class="row-2">
           <div class="field">
             <label>Peso vacío (kg)</label>
-            <input type="number" id="wb-empty" value="351.9" step="0.1" min="300" max="420" oninput="calcWB()">
+            <input type="number" id="wb-empty" value="364.3" readonly tabindex="-1" style="opacity:0.7;cursor:not-allowed;background:rgba(51,65,85,0.3)">
           </div>
           <div class="field">
             <label>Piloto (kg)</label>
@@ -1235,7 +1235,7 @@ function pointInEnvelope(cgPct, weight) {
 }
 
 function calcWB() {
-  const empty   = parseFloat(document.getElementById('wb-empty').value)   || 351.9;
+  const empty   = parseFloat(document.getElementById('wb-empty').value)   || 364.3;
   const pilot   = parseFloat(document.getElementById('wb-pilot').value)   || 0;
   const copilot = parseFloat(document.getElementById('wb-copilot').value) || 0;
   const bag     = parseFloat(document.getElementById('wb-bag').value)     || 0;
