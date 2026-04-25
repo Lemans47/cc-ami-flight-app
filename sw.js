@@ -1,5 +1,5 @@
-const CACHE = 'ccami-v3';
-const ASSETS = ['/', '/index.html', '/manifest.json', '/icon-192.png', '/icon-512.png'];
+const CACHE = 'ccami-v4';
+const ASSETS = ['/', '/index.html', '/manifest.json', '/icon-192.png', '/icon-512.png', '/jspdf.umd.min.js'];
 
 self.addEventListener('install', e => {
   e.waitUntil(
