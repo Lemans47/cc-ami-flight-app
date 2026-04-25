@@ -241,8 +241,25 @@ select option { background:var(--bg2); }
 /* ── RESET PROGRESS ── */
 .header-progress { display:flex; align-items:center; gap:8px; }
 .total-progress { font-family:var(--mono); font-size:0.78rem; color:var(--text2); }
+
+/* ── SIGN MODAL ── */
+#sign-modal {
+  display:none; position:fixed; inset:0; z-index:1000;
+  background:rgba(15,23,42,0.85); backdrop-filter:blur(2px);
+  align-items:flex-start; justify-content:center;
+  padding:24px 12px; overflow-y:auto;
+}
+#sign-modal.open { display:flex; }
+#sign-modal .card { width:100%; max-width:420px; margin:auto; }
+#sign-canvas {
+  width:100%; height:140px; background:#fff; border:1px solid var(--border);
+  border-radius:6px; touch-action:none; cursor:crosshair; display:block;
+}
+.sign-actions { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px; }
+.sign-err { color:var(--red); font-size:0.78rem; margin-top:6px; min-height:1em; font-family:var(--mono); }
 </style>
 
+<script src="/jspdf.umd.min.js" defer></script>
 <script>
 // PWA — Service Worker + Install prompt
 if ('serviceWorker' in navigator) {
@@ -721,6 +738,8 @@ window.addEventListener('load', () => {
             <span style="font-size:0.72rem;color:var(--text2);display:flex;align-items:center;gap:4px"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ef4444"></span>Fuera del envelope</span>
           </div>
         </div>
+
+        <button class="btn btn-primary" style="margin-top:14px" onclick="openSignModal()">📄 Generar PDF firmado</button>
 
       </div>
     </div>
@@ -1303,6 +1322,13 @@ function calcWB() {
     </div>`;
 
   drawEnvelope(cgPct, totalKg, inside);
+
+  window.lastWBResult = {
+    timestamp: new Date(),
+    inputs: { empty, pilot, copilot, bag, fuelL, fuelKg },
+    items, totalKg, totalMom, cgM, cgPct,
+    inside, wtOk, bagOk, fuelOk, allOk
+  };
 }
 
 function drawEnvelope(cgPct, totalKg, inside) {
@@ -1636,6 +1662,267 @@ function saveAlert() {
 function removeAlert(btn, idx) { btn.closest('.alert-item').remove(); }
 
 updateTimerDisplay();
+
+// ─── PDF FIRMADO W&B ───
+const WB_PDF = { hasSigned: false, ctx: null, canvas: null, lastX: 0, lastY: 0 };
+
+function openSignModal() {
+  if (!window.lastWBResult) calcWB();
+  const modal = document.getElementById('sign-modal');
+  document.getElementById('sign-name').value    = localStorage.getItem('wb.pilot.name') || '';
+  document.getElementById('sign-license').value = localStorage.getItem('wb.pilot.license') || '';
+  document.getElementById('sign-err').textContent = '';
+  modal.classList.add('open');
+  setTimeout(initSignatureCanvas, 30);
+}
+
+function closeSignModal() {
+  document.getElementById('sign-modal').classList.remove('open');
+}
+
+function initSignatureCanvas() {
+  const c = document.getElementById('sign-canvas');
+  if (!c) return;
+  WB_PDF.canvas = c;
+  const dpr = window.devicePixelRatio || 1;
+  const cssW = c.clientWidth, cssH = c.clientHeight;
+  c.width = cssW * dpr;
+  c.height = cssH * dpr;
+  const ctx = c.getContext('2d');
+  ctx.scale(dpr, dpr);
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(0, 0, cssW, cssH);
+  ctx.lineWidth = 2;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  ctx.strokeStyle = '#0f172a';
+  WB_PDF.ctx = ctx;
+  WB_PDF.hasSigned = false;
+
+  const pos = e => {
+    const r = c.getBoundingClientRect();
+    return { x: e.clientX - r.left, y: e.clientY - r.top };
+  };
+  let drawing = false;
+  c.onpointerdown = e => {
+    drawing = true;
+    c.setPointerCapture(e.pointerId);
+    const p = pos(e);
+    WB_PDF.lastX = p.x; WB_PDF.lastY = p.y;
+    ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p.x + 0.1, p.y + 0.1); ctx.stroke();
+    WB_PDF.hasSigned = true;
+    e.preventDefault();
+  };
+  c.onpointermove = e => {
+    if (!drawing) return;
+    const p = pos(e);
+    ctx.beginPath(); ctx.moveTo(WB_PDF.lastX, WB_PDF.lastY); ctx.lineTo(p.x, p.y); ctx.stroke();
+    WB_PDF.lastX = p.x; WB_PDF.lastY = p.y;
+    e.preventDefault();
+  };
+  const end = e => { drawing = false; };
+  c.onpointerup = end;
+  c.onpointercancel = end;
+  c.onpointerleave = end;
+}
+
+function clearSignature() {
+  if (!WB_PDF.ctx || !WB_PDF.canvas) return;
+  const c = WB_PDF.canvas;
+  WB_PDF.ctx.fillStyle = '#fff';
+  WB_PDF.ctx.fillRect(0, 0, c.clientWidth, c.clientHeight);
+  WB_PDF.hasSigned = false;
+}
+
+function submitSignAndGenerate() {
+  const errEl = document.getElementById('sign-err');
+  const name    = document.getElementById('sign-name').value.trim();
+  const license = document.getElementById('sign-license').value.trim();
+  if (!name)    { errEl.textContent = 'Ingresá tu nombre.'; return; }
+  if (!license) { errEl.textContent = 'Ingresá tu número de licencia.'; return; }
+  if (!WB_PDF.hasSigned) { errEl.textContent = 'Firmá en el recuadro blanco.'; return; }
+  if (typeof window.jspdf === 'undefined') { errEl.textContent = 'Librería PDF no cargada. Recargá la app.'; return; }
+  errEl.textContent = '';
+
+  localStorage.setItem('wb.pilot.name', name);
+  localStorage.setItem('wb.pilot.license', license);
+
+  const sigDataURL = WB_PDF.canvas.toDataURL('image/png');
+  closeSignModal();
+  try {
+    generateWBPdf(name, license, sigDataURL);
+  } catch (e) {
+    console.error(e);
+    alert('Error generando PDF: ' + e.message);
+  }
+}
+
+function fmtDateTime(d) {
+  const pad = n => String(n).padStart(2, '0');
+  return `${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
+function fmtFileDate(d) {
+  const pad = n => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}_${pad(d.getHours())}${pad(d.getMinutes())}`;
+}
+
+function generateWBPdf(name, license, sigDataURL) {
+  const r = window.lastWBResult;
+  if (!r) throw new Error('No hay cálculo W&B disponible.');
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit:'mm', format:'a4' });
+
+  const pageW = 210, margin = 15;
+  const col = { text:[15,23,42], muted:[100,116,139], accent:[14,165,233], green:[22,163,74], red:[220,38,38], border:[203,213,225] };
+  let y = margin;
+
+  // Header
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(14); doc.setTextColor(...col.text);
+  doc.text('REPORTE DE PESO Y BALANCE', margin, y);
+  doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.setTextColor(...col.muted);
+  doc.text('Matrícula: CC-AMI · Evektor Harmony LSA', margin, y+5);
+  doc.text(`Fecha: ${fmtDateTime(r.timestamp)}`, pageW - margin, y+5, { align:'right' });
+  y += 9;
+  doc.setDrawColor(...col.border); doc.setLineWidth(0.3);
+  doc.line(margin, y, pageW - margin, y);
+  y += 6;
+
+  // Cálculo de momentos (única fuente de pesos)
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(10); doc.setTextColor(...col.text);
+  doc.text('Cálculo de momentos', margin, y); y += 4.5;
+  doc.setFontSize(8.5); doc.setFont('helvetica', 'bold');
+  const colX = [margin, margin+105, margin+140, margin+175];
+  doc.setTextColor(...col.muted);
+  doc.text('ÍTEM', colX[0], y);
+  doc.text('PESO (kg)', colX[1], y, { align:'right' });
+  doc.text('BRAZO (m)', colX[2], y, { align:'right' });
+  doc.text('MOMENTO', colX[3], y, { align:'right' });
+  y += 1.2;
+  doc.setDrawColor(...col.border); doc.line(margin, y, pageW - margin, y); y += 4;
+  doc.setFont('helvetica', 'normal'); doc.setTextColor(...col.text);
+  r.items.forEach(it => {
+    doc.text(it.name, colX[0], y);
+    doc.text(it.kg > 0 ? it.kg.toFixed(2) : '-', colX[1], y, { align:'right' });
+    doc.text(it.arm.toFixed(3), colX[2], y, { align:'right' });
+    doc.text((it.kg*it.arm).toFixed(3), colX[3], y, { align:'right' });
+    y += 4;
+  });
+  doc.setDrawColor(...col.border); doc.line(margin, y-1, pageW - margin, y-1);
+  doc.setFont('helvetica', 'bold');
+  doc.text('TOTAL', colX[0], y+3);
+  doc.setTextColor(...(r.wtOk ? col.green : col.red));
+  doc.text(r.totalKg.toFixed(2), colX[1], y+3, { align:'right' });
+  doc.setTextColor(...col.muted);
+  doc.text(r.cgM.toFixed(4), colX[2], y+3, { align:'right' });
+  doc.setTextColor(...col.accent);
+  doc.text(r.totalMom.toFixed(3), colX[3], y+3, { align:'right' });
+  y += 7;
+
+  // Resultados — 3 columnas compactas
+  const usable = pageW - 2*margin;
+  const boxW = (usable - 8) / 3;
+  const boxes = [
+    { label: 'PESO TOTAL', value: `${r.totalKg.toFixed(1)} kg`, sub: r.wtOk ? 'Máx 600 kg' : 'EXCEDE MTOW', color: r.wtOk ? col.green : col.red },
+    { label: 'CG',         value: `${r.cgPct.toFixed(2)} %MAC`, sub: `${r.cgM.toFixed(4)} m`, color: col.accent },
+    { label: 'ENVELOPE',   value: r.inside ? 'DENTRO' : 'FUERA', sub: r.inside ? 'Autorizado' : 'Ajustar carga', color: r.inside ? col.green : col.red },
+  ];
+  boxes.forEach((b, i) => {
+    const x = margin + i*(boxW+4);
+    doc.setDrawColor(...col.border); doc.setLineWidth(0.3);
+    doc.roundedRect(x, y, boxW, 16, 1.5, 1.5);
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(7); doc.setTextColor(...col.muted);
+    doc.text(b.label, x + boxW/2, y+4, { align:'center' });
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.setTextColor(...b.color);
+    doc.text(b.value, x + boxW/2, y+9.5, { align:'center' });
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(7); doc.setTextColor(...col.muted);
+    doc.text(b.sub, x + boxW/2, y+13.5, { align:'center' });
+  });
+  y += 19;
+
+  // Alertas inline (solo si hay)
+  const warns = [];
+  if (!r.wtOk)   warns.push('Excede MTOW 600 kg');
+  if (!r.bagOk)  warns.push('Equipaje excede 25 kg');
+  if (!r.fuelOk) warns.push('Combustible excede 120 l');
+  if (!r.inside && r.wtOk) warns.push('CG fuera del envelope permitido');
+  if (warns.length) {
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(8.5); doc.setTextColor(...col.red);
+    doc.text('⚠ ' + warns.join(' · '), margin, y); y += 5;
+  }
+
+  // Gráfico envelope (más chico, centrado)
+  try {
+    const chart = document.getElementById('wb-chart');
+    if (chart) {
+      const imgData = chart.toDataURL('image/png');
+      const imgW = 110;
+      const imgH = imgW * (chart.height / chart.width);
+      const imgX = (pageW - imgW) / 2;
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(9); doc.setTextColor(...col.text);
+      doc.text('Envelope CG', imgX, y); y += 3;
+      doc.addImage(imgData, 'PNG', imgX, y, imgW, imgH);
+      y += imgH + 4;
+    }
+  } catch (e) { console.warn('No se pudo embeber el envelope:', e); }
+
+  // Firma — compacta, dos columnas
+  doc.setDrawColor(...col.border); doc.line(margin, y, pageW - margin, y); y += 5;
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(10); doc.setTextColor(...col.text);
+  doc.text('Piloto al mando', margin, y); y += 5;
+
+  const sigW = 60, sigH = 22;
+  // Columna izquierda: datos
+  doc.setFont('helvetica', 'normal'); doc.setFontSize(9);
+  doc.setTextColor(...col.muted); doc.text('Nombre:', margin, y);
+  doc.setTextColor(...col.text);  doc.text(name, margin+22, y);
+  doc.setTextColor(...col.muted); doc.text('N° Licencia:', margin, y+5);
+  doc.setTextColor(...col.text);  doc.text(license, margin+22, y+5);
+  // Columna derecha: firma
+  const sigX = pageW - margin - sigW;
+  doc.addImage(sigDataURL, 'PNG', sigX, y-3, sigW, sigH);
+  doc.setDrawColor(...col.text); doc.setLineWidth(0.3);
+  doc.line(sigX, y + sigH - 3, sigX + sigW, y + sigH - 3);
+  doc.setFont('helvetica', 'normal'); doc.setFontSize(7.5); doc.setTextColor(...col.muted);
+  doc.text('Firma', sigX + sigW/2, y + sigH, { align:'center' });
+
+  // Footer
+  doc.setFontSize(7.5); doc.setTextColor(...col.muted);
+  doc.text(`Generado por CC-AMI Flight App · ${fmtDateTime(r.timestamp)}`, pageW/2, 290, { align:'center' });
+
+  doc.save(`WB_CC-AMI_${fmtFileDate(r.timestamp)}.pdf`);
+}
 </script>
+
+<!-- SIGN MODAL -->
+<div id="sign-modal" role="dialog" aria-modal="true" aria-labelledby="sign-modal-title">
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title" id="sign-modal-title">✍️ Firmar reporte W&B</span>
+      <button class="btn btn-outline btn-sm" onclick="closeSignModal()" aria-label="Cerrar">✕</button>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <label for="sign-name">Nombre del piloto</label>
+        <input type="text" id="sign-name" autocomplete="name" placeholder="Ej: Juan Pérez">
+      </div>
+      <div class="field">
+        <label for="sign-license">N° de licencia</label>
+        <input type="text" id="sign-license" placeholder="Ej: PPL-12345">
+      </div>
+      <div class="field">
+        <label>Firma (dibujá con dedo, mouse o stylus)</label>
+        <canvas id="sign-canvas"></canvas>
+        <button class="btn btn-outline btn-sm" style="margin-top:8px" onclick="clearSignature()">🗑 Limpiar firma</button>
+      </div>
+      <div class="sign-err" id="sign-err"></div>
+      <div class="sign-actions">
+        <button class="btn btn-outline" onclick="closeSignModal()">Cancelar</button>
+        <button class="btn btn-primary" onclick="submitSignAndGenerate()">Generar PDF</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
