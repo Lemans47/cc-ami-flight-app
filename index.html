@@ -1790,7 +1790,7 @@ function generateWBPdf(name, license, sigDataURL) {
 
   // Cálculo de momentos (única fuente de pesos)
   doc.setFont('helvetica', 'bold'); doc.setFontSize(10); doc.setTextColor(...col.text);
-  doc.text('Cálculo de momentos', margin, y); y += 4.5;
+  doc.text('Cálculo', margin, y); y += 4.5;
   doc.setFontSize(8.5); doc.setFont('helvetica', 'bold');
   const colX = [margin, margin+105, margin+140, margin+175];
   doc.setTextColor(...col.muted);
