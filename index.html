@@ -1851,12 +1851,12 @@ function generateWBPdf(name, license, sigDataURL) {
     doc.text('⚠ ' + warns.join(' · '), margin, y); y += 5;
   }
 
-  // Gráfico envelope (más chico, centrado)
+  // Gráfico envelope (grande, ancho casi completo de la página)
   try {
     const chart = document.getElementById('wb-chart');
     if (chart) {
       const imgData = chart.toDataURL('image/png');
-      const imgW = 110;
+      const imgW = pageW - 2*margin;
       const imgH = imgW * (chart.height / chart.width);
       const imgX = (pageW - imgW) / 2;
       doc.setFont('helvetica', 'bold'); doc.setFontSize(9); doc.setTextColor(...col.text);
