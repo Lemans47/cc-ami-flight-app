@@ -733,7 +733,7 @@ window.addEventListener('load', () => {
           <div style="font-family:var(--raj);font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text2);margin-bottom:6px">CG Envelope — CC-AMI</div>
           <canvas id="wb-chart" style="width:100%;border-radius:6px;background:var(--bg);display:block"></canvas>
           <div style="display:flex;gap:12px;margin-top:6px;flex-wrap:wrap">
-            <span style="font-size:0.72rem;color:var(--text2);display:flex;align-items:center;gap:4px"><span style="display:inline-block;width:16px;height:3px;background:#0284c7;border-radius:2px"></span>Envelope CG</span>
+            <span style="font-size:0.72rem;color:var(--text2);display:flex;align-items:center;gap:4px"><span style="display:inline-block;width:16px;height:3px;background:#dc2626;border-radius:2px"></span>Envelope CG</span>
             <span style="font-size:0.72rem;color:var(--text2);display:flex;align-items:center;gap:4px"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#16a34a"></span>Punto actual (dentro)</span>
             <span style="font-size:0.72rem;color:var(--text2);display:flex;align-items:center;gap:4px"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#dc2626"></span>Fuera del envelope</span>
           </div>
@@ -1334,76 +1334,94 @@ function calcWB() {
 function drawEnvelope(cgPct, totalKg, inside) {
   const canvas = document.getElementById('wb-chart');
   if (!canvas) return;
-  const dpr = window.devicePixelRatio || 1;
-  const W = canvas.offsetWidth || 320;
-  const H = Math.round(W * 0.65);
-  canvas.width  = W * dpr;
-  canvas.height = H * dpr;
-  canvas.style.height = H + 'px';
+
+  // Resolución interna fija y alta (independiente del tamaño en pantalla)
+  // para que la grilla densa estilo POH se vea nítida en pantalla y en el PDF.
+  const W = 760, H = Math.round(W * 0.65);   // unidades lógicas de dibujo
+  const RS = 2;                               // factor de render
+  canvas.width  = W * RS;
+  canvas.height = H * RS;
+  const dispW = canvas.offsetWidth || 320;    // tamaño de display (responsive)
+  canvas.style.height = Math.round(dispW * 0.65) + 'px';
   const ctx = canvas.getContext('2d');
-  ctx.scale(dpr, dpr);
+  ctx.setTransform(RS, 0, 0, RS, 0, 0);
 
   // Márgenes
-  const ml=44, mr=18, mt=16, mb=36;
+  const ml=58, mr=16, mt=34, mb=54;
   const cw = W-ml-mr, ch = H-mt-mb;
 
-  // Rangos del gráfico
-  const xMin=17, xMax=34, yMin=340, yMax=650;
+  // Rangos del gráfico (igual al gráfico oficial del POH Harmony LSA)
+  const xMin=12, xMax=34, yMin=350, yMax=660;
   const toX = x => ml + (x-xMin)/(xMax-xMin)*cw;
   const toY = y => mt + ch - (y-yMin)/(yMax-yMin)*ch;
 
   // Fondo
-  ctx.fillStyle = '#f8fafc';
-  ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = '#e8f0fb'; ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = '#fbfdff'; ctx.fillRect(ml, mt, cw, ch);  // área de ploteo
 
-  // Grid
-  ctx.strokeStyle = 'rgba(148,163,184,0.5)';
-  ctx.lineWidth = 0.5;
-  for (let x=18; x<=33; x+=2) {
+  // Grid (cada 1% en X, cada 10 kg en Y)
+  ctx.strokeStyle = 'rgba(96,125,170,0.35)'; ctx.lineWidth = 0.6;
+  for (let x=12; x<=34; x++) {
     ctx.beginPath(); ctx.moveTo(toX(x),mt); ctx.lineTo(toX(x),mt+ch); ctx.stroke();
   }
-  for (let y=350; y<=640; y+=50) {
+  for (let y=350; y<=660; y+=10) {
     ctx.beginPath(); ctx.moveTo(ml,toY(y)); ctx.lineTo(ml+cw,toY(y)); ctx.stroke();
   }
 
-  // Ejes
-  ctx.strokeStyle = '#475569'; ctx.lineWidth = 1;
-  ctx.beginPath(); ctx.moveTo(ml,mt); ctx.lineTo(ml,mt+ch); ctx.lineTo(ml+cw,mt+ch); ctx.stroke();
+  // Marco del área
+  ctx.strokeStyle = '#334155'; ctx.lineWidth = 1.2;
+  ctx.strokeRect(ml, mt, cw, ch);
 
-  // Labels eje X
-  ctx.fillStyle = '#64748b'; ctx.font = `${9*dpr/dpr}px Share Tech Mono, monospace`; ctx.textAlign='center';
-  for (let x=18; x<=33; x+=2) {
-    ctx.fillText(x+'%', toX(x), mt+ch+14);
+  // Labels eje X (cada 1%, rotados verticales como en el POH)
+  ctx.fillStyle = '#1e293b'; ctx.font = '11px Share Tech Mono, monospace';
+  for (let x=12; x<=34; x++) {
+    ctx.save();
+    ctx.translate(toX(x), mt+ch+6);
+    ctx.rotate(-Math.PI/2);
+    ctx.textAlign='right'; ctx.textBaseline='middle';
+    ctx.fillText(String(x), 0, 0);
+    ctx.restore();
+  }
+  ctx.textBaseline='alphabetic';
+
+  // Labels eje Y (cada 10 kg)
+  ctx.textAlign='right'; ctx.font = '10px Share Tech Mono, monospace';
+  for (let y=350; y<=660; y+=10) {
+    ctx.fillText(String(y), ml-6, toY(y)+3.5);
   }
 
-  // Labels eje Y
-  ctx.textAlign='right';
-  for (let y=350; y<=640; y+=50) {
-    ctx.fillText(y, ml-5, toY(y)+3);
-  }
+  // Títulos de ejes
+  ctx.fillStyle = '#0f172a'; ctx.font = 'bold 13px Rajdhani, sans-serif'; ctx.textAlign='center';
+  ctx.fillText('Loaded Airplane CG position (% MAC)', ml+cw/2, H-6);
+  ctx.save(); ctx.translate(14, mt+ch/2); ctx.rotate(-Math.PI/2);
+  ctx.fillText('Loaded Airplane Weight (kg)', 0, 0); ctx.restore();
 
-  // Títulos ejes
-  ctx.fillStyle = '#94a3b8'; ctx.font = `${9*dpr/dpr}px Rajdhani, sans-serif`; ctx.textAlign='center';
-  ctx.fillText('% MAC', ml+cw/2, H-4);
-  ctx.save(); ctx.translate(10, mt+ch/2); ctx.rotate(-Math.PI/2);
-  ctx.fillText('Peso (kg)', 0, 0); ctx.restore();
+  // Título tipo POH (caja con borde)
+  ctx.font = 'bold 14px Rajdhani, sans-serif'; ctx.textAlign='left'; ctx.textBaseline='middle';
+  const t1 = 'Harmony LSA', t2 = ' Operational Weight and CG Envelope';
+  const w1 = ctx.measureText(t1).width, w2 = ctx.measureText(t2).width;
+  const tw = w1 + w2, tx = (W - tw)/2;
+  ctx.strokeStyle = '#0f172a'; ctx.lineWidth = 1.4;
+  ctx.strokeRect(tx-9, 6, tw+18, 21);
+  ctx.fillStyle = '#dc2626'; ctx.fillText(t1, tx, 17);
+  ctx.fillStyle = '#0f172a'; ctx.fillText(t2, tx+w1, 17);
+  ctx.textBaseline='alphabetic';
 
-  // Zona dentro del envelope (relleno suave)
+  // Envelope (línea roja, estilo POH)
   ctx.beginPath();
   WB.envelope.forEach((p,i) => {
     i===0 ? ctx.moveTo(toX(p.x), toY(p.y)) : ctx.lineTo(toX(p.x), toY(p.y));
   });
   ctx.closePath();
-  ctx.fillStyle = 'rgba(2,132,199,0.10)';
-  ctx.fill();
+  ctx.fillStyle = 'rgba(220,38,38,0.05)'; ctx.fill();
+  ctx.strokeStyle = '#dc2626'; ctx.lineWidth = 2.6; ctx.stroke();
 
-  // Envelope línea
-  ctx.beginPath();
-  WB.envelope.forEach((p,i) => {
-    i===0 ? ctx.moveTo(toX(p.x), toY(p.y)) : ctx.lineTo(toX(p.x), toY(p.y));
-  });
-  ctx.closePath();
-  ctx.strokeStyle = '#0284c7'; ctx.lineWidth = 2; ctx.stroke();
+  // Línea de referencia CG aft (azul punteada en 30.5 %MAC, como en el POH)
+  ctx.save();
+  ctx.setLineDash([6,4]);
+  ctx.strokeStyle = '#1e3a8a'; ctx.lineWidth = 1.4;
+  ctx.beginPath(); ctx.moveTo(toX(30.5),mt); ctx.lineTo(toX(30.5),mt+ch); ctx.stroke();
+  ctx.restore();
 
   // Punto actual
   if (cgPct > 0 && totalKg > 0) {
@@ -1412,8 +1430,8 @@ function drawEnvelope(cgPct, totalKg, inside) {
 
     // Cruz
     ctx.strokeStyle = col; ctx.lineWidth = 1.5;
-    ctx.beginPath(); ctx.moveTo(px-10,py); ctx.lineTo(px+10,py); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(px,py-10); ctx.lineTo(px,py+10); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(px-11,py); ctx.lineTo(px+11,py); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(px,py-11); ctx.lineTo(px,py+11); ctx.stroke();
 
     // Punto
     ctx.beginPath(); ctx.arc(px, py, 6, 0, Math.PI*2);
@@ -1421,10 +1439,10 @@ function drawEnvelope(cgPct, totalKg, inside) {
     ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 2; ctx.stroke();
 
     // Label
-    ctx.fillStyle = col; ctx.font = `bold ${9*dpr/dpr}px Share Tech Mono, monospace`;
+    ctx.fillStyle = col; ctx.font = 'bold 13px Share Tech Mono, monospace';
     ctx.textAlign = cgPct > 28 ? 'right' : 'left';
-    const lx = cgPct > 28 ? px-12 : px+12;
-    ctx.fillText(`${cgPct.toFixed(1)}% / ${totalKg.toFixed(0)}kg`, lx, py-8);
+    const lx = cgPct > 28 ? px-13 : px+13;
+    ctx.fillText(`${cgPct.toFixed(1)}% / ${totalKg.toFixed(0)}kg`, lx, py-9);
   }
 }
 
