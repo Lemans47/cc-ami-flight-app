@@ -1341,8 +1341,10 @@ function drawEnvelope(cgPct, totalKg, inside) {
   const RS = 2;                               // factor de render
   canvas.width  = W * RS;
   canvas.height = H * RS;
-  const dispW = canvas.offsetWidth || 320;    // tamaño de display (responsive)
-  canvas.style.height = Math.round(dispW * 0.65) + 'px';
+  // El display se ajusta al ancho del contenedor; la altura la deriva el
+  // navegador de la proporción del buffer (evita que se "infle" en mobile).
+  canvas.style.width = '100%';
+  canvas.style.height = 'auto';
   const ctx = canvas.getContext('2d');
   ctx.setTransform(RS, 0, 0, RS, 0, 0);
 
