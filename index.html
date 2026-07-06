@@ -188,6 +188,7 @@ select option { background:var(--bg2); }
 .ck-val { font-family:var(--raj); font-weight:700; font-size:1rem; margin-top:2px; }
 .ck-val.red { color:var(--red); }
 .ck-val.green { color:var(--green); }
+.ck-val.orange { color:var(--orange); }
 
 /* Section collapse */
 .sec-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--r); margin-bottom:10px; overflow:hidden; }
@@ -349,154 +350,230 @@ window.addEventListener('load', () => {
   <div class="inner-page active" id="cl-normal">
 
     <div class="sec-card open" data-sec="s1">
-      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">🔍 Before Turn On</div><div class="sec-meta"><span id="sp-s1">0/12</span><span class="sec-toggle">▼</span></div></div>
+      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">🔍 Pre-Start</div><div class="sec-meta"><span id="sp-s1">0/15</span><span class="sec-toggle">▼</span></div></div>
       <div class="sec-body">
         <div id="checks-s1">
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Walk around</div><div class="ck-val">Complete rev POH</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Weight & Balance</div><div class="ck-val">Check</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Preflight Check</div><div class="ck-val">Complete</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Weight & Balance</div><div class="ck-val">In the Envelope</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel</div><div class="ck-val">Check Qty & Drain</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Other Fluids</div><div class="ck-val">Oil, Coolant & Brakes</div></div></div>
           <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Documents</div><div class="ck-val red">A.R.O.W</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel</div><div class="ck-val">Quantity, drain</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fluids</div><div class="ck-val">Oil, Coolant, brake</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Canopy</div><div class="ck-val">Closed</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Seat Belts</div><div class="ck-val">ON Locked</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Flaps</div><div class="ck-val">0 Degrees</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Ignition OFF</div><div class="ck-val">OFF</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Switches</div><div class="ck-val">All OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fire Extinguisher</div><div class="ck-val">Check Date and Qty</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Flaps</div><div class="ck-val">Function Check → Up Position Set</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Ignition</div><div class="ck-val">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Switches</div><div class="ck-val">OFF</div></div></div>
           <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Circuit Breakers</div><div class="ck-val">All IN</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Canopy</div><div class="ck-val">Close</div></div></div>
           <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Parking Brake</div><div class="ck-val">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Passenger</div><div class="ck-val green">SAFETY Briefing</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Seat Belts</div><div class="ck-val">Adjust & Secure</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Engine Fire at Start</div><div class="ck-val red">Briefing</div></div></div>
         </div>
       </div>
     </div>
 
     <div class="sec-card" data-sec="s2">
-      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">🔧 Engine Start</div><div class="sec-meta"><span id="sp-s2">0/14</span><span class="sec-toggle">▼</span></div></div>
+      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">🔧 Engine Starting</div><div class="sec-meta"><span id="sp-s2">0/19</span><span class="sec-toggle">▼</span></div></div>
       <div class="sec-body">
         <div id="checks-s2">
           <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Master</div><div class="ck-val green">ON</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Selector</div><div class="ck-val red">LEFT</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Hobbs</div><div class="ck-val">Write down</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Gauge</div><div class="ck-val">Check level</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Gauge</div><div class="ck-val">Check Qty</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Selector</div><div class="ck-val red">Left</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Hobbs</div><div class="ck-val">Note</div></div></div>
           <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Pump</div><div class="ck-val green">ON</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Throttle</div><div class="ck-val">IDLE — pull back until end</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Choke</div><div class="ck-val">Pull back — Cold start ≤30°C</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Prop Area</div><div class="ck-val">Shout "LIBRE" and Check</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Beacon</div><div class="ck-val">If required</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Ignition Key</div><div class="ck-val red">START — 10 seg MAX, wait 2 min</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Oil Pressure</div><div class="ck-val">&gt;29 PSI</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Throttle Level</div><div class="ck-val">2000–2500 RPM</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">GEN, AUX GEN</div><div class="ck-val green">ON</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Choke</div><div class="ck-val">ON if necessary</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Throttle</div><div class="ck-val">Idle</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Choke</div><div class="ck-val">As Required — Cold Start</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Beacon</div><div class="ck-val">On</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Clear Prop</div><div class="ck-val">Clear!</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Ignition Key</div><div class="ck-val red">Start — 10 sec Max, wait 2 min to restart</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Tacometer</div><div class="ck-val">2000 - 2500 RPM Max</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Oil Pressure</div><div class="ck-val">+ 29 PSI</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">GEN & AUX GEN</div><div class="ck-val green">ON</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Choke</div><div class="ck-val red">OFF</div></div></div>
           <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Pump</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Selector</div><div class="ck-val">Right (1 min)</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Avionics</div><div class="ck-val green">ON</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Autopilot</div><div class="ck-val green">ON</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Other Electrical</div><div class="ck-val">As Required</div></div></div>
         </div>
-        <div style="margin-top:10px;padding:8px 10px;background:rgba(249,115,22,0.1);border-left:3px solid var(--orange);border-radius:0 4px 4px 0;font-size:0.82rem;color:#9a3412">⚠ Idle MAX 2500 RPM bajo 50°C aceite</div>
+        <div style="margin-top:10px;padding:8px 10px;background:rgba(249,115,22,0.1);border-left:3px solid var(--orange);border-radius:0 4px 4px 0;font-size:0.82rem;color:#9a3412">⚠ Tacómetro máx 2000–2500 RPM en arranque</div>
       </div>
     </div>
 
     <div class="sec-card" data-sec="s3">
-      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">🛤 Before Taxi</div><div class="sec-meta"><span id="sp-s3">0/6</span><span class="sec-toggle">▼</span></div></div>
+      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">🛤 Before Taxiing</div><div class="sec-meta"><span id="sp-s3">0/4</span><span class="sec-toggle">▼</span></div></div>
       <div class="sec-body">
         <div id="checks-s3">
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Avionics</div><div class="ck-val green">ON</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Auto Pilot</div><div class="ck-val green">ON</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Other Electrical</div><div class="ck-val">If required</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Transponder</div><div class="ck-val">STAND BY</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Radio</div><div class="ck-val">Tuning & Adjusting</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Selector</div><div class="ck-val">RIGHT (1 min) → LEFT</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Transponder</div><div class="ck-val orange">Standby (Menu&gt;XPNDR)</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Taxi Lights</div><div class="ck-val">As Required</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Radio</div><div class="ck-val">Tune & Set</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Brakes</div><div class="ck-val">Check Pressure</div></div></div>
         </div>
       </div>
     </div>
 
     <div class="sec-card" data-sec="s4">
-      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">⚙️ Run Up — C.I.G.A.R.R.S.</div><div class="sec-meta"><span id="sp-s4">0/9</span><span class="sec-toggle">▼</span></div></div>
+      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">🧭 Taxi</div><div class="sec-meta"><span id="sp-s4">0/3</span><span class="sec-toggle">▼</span></div></div>
       <div class="sec-body">
         <div id="checks-s4">
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Control Flights</div><div class="ck-val">Free, Clean and Normal</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Instruments</div><div class="ck-val">Altimeter adjust</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Gas (Fuel Selector)</div><div class="ck-val red">LEFT</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Altitude / TRIM</div><div class="ck-val">TRIM neutral</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Radios</div><div class="ck-val">SET</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Run Up — Oil Temp</div><div class="ck-val">&gt;50°C</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Parking Brake</div><div class="ck-val">SET</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">RPM Check</div><div class="ck-val">4000rpm, &lt;300 drop, 120 mag diff — Carb Heat — Instruments</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Safety</div><div class="ck-val">Seat belts ✓ — Canopy CLOSED</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Rudder</div><div class="ck-val">Check</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Magnetic Compass</div><div class="ck-val">Test</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">HSI / Magnetic Compass</div><div class="ck-val">Align</div></div></div>
         </div>
       </div>
     </div>
 
     <div class="sec-card" data-sec="s5">
-      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">🛫 Before Entering Runway</div><div class="sec-meta"><span id="sp-s5">0/10</span><span class="sec-toggle">▼</span></div></div>
+      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">⚙️ Run Up</div><div class="sec-meta"><span id="sp-s5">0/15</span><span class="sec-toggle">▼</span></div></div>
       <div class="sec-body">
         <div id="checks-s5">
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Lights — Beacon</div><div class="ck-val green">ON</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Landing Lights</div><div class="ck-val red">ON</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Transponder</div><div class="ck-val">ALT</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Screen swap — CHECK</div><div class="ck-val">Breakers, switches, instruments</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Choke</div><div class="ck-val red">OFF</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Selector</div><div class="ck-val red">LEFT</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Pump</div><div class="ck-val red">ON</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Flaps</div><div class="ck-val red">15° (first pos)</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Parking Brake</div><div class="ck-val red">OFF</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Pattern</div><div class="ck-val red">CHECK</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Flight Controls</div><div class="ck-val">Free — Libres, Limpios y Normales</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Altimeter</div><div class="ck-val">Set QNH</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Selector</div><div class="ck-val red">Left</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Trim</div><div class="ck-val">T/O Position</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Radio</div><div class="ck-val">Tune & Set</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Run Up — Temp</div><div class="ck-val">Check 50°C +</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Run Up — Parking Brake</div><div class="ck-val">Set</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Run Up — RPM</div><div class="ck-val">4000 RPM</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Run Up — Magneto</div><div class="ck-val">Mag Left / Right Check (300 ea / 120 dif)</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Run Up — Engine Inst</div><div class="ck-val">Check Green</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Carb Heat</div><div class="ck-val green">ON</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Idle</div><div class="ck-val">Check</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Carb Heat</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Canopy</div><div class="ck-val">Closed</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Seat Belts</div><div class="ck-val">Check</div></div></div>
         </div>
       </div>
     </div>
 
     <div class="sec-card" data-sec="s6">
-      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">🚀 Climb & Cruise</div><div class="sec-meta"><span id="sp-s6">0/8</span><span class="sec-toggle">▼</span></div></div>
+      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">🛫 Pre Takeoff</div><div class="sec-meta"><span id="sp-s6">0/14</span><span class="sec-toggle">▼</span></div></div>
       <div class="sec-body">
         <div id="checks-s6">
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Throttle</div><div class="ck-val">5500 RPM</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Airspeed climb</div><div class="ck-val">54–62 kts</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Flaps</div><div class="ck-val">0° (&gt;150 ft)</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Pump</div><div class="ck-val red">OFF 1000 ft AGL</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Engine Instruments</div><div class="ck-val">Monitor & review</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Cruise Throttle</div><div class="ck-val">4300–5000 RPM</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Quantity</div><div class="ck-val">Monitor & review</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Descent Carb Heat</div><div class="ck-val">As needed below 4500 RPM</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Lights — Beacon</div><div class="ck-val green">ON</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Lights — Landing</div><div class="ck-val green">ON</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">XPNDR</div><div class="ck-val green">ALT (MODE C)</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">SCREEN</div><div class="ck-val">SWAP</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Circuit Breakers & Switches</div><div class="ck-val">Check On</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Trim</div><div class="ck-val">T/O Position</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Choke</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Selector</div><div class="ck-val red">Left or Fullest</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Pump</div><div class="ck-val green">ON</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Flaps</div><div class="ck-val">T/O Position (15 deg)</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Parking Brake</div><div class="ck-val">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Take Off Brief</div><div class="ck-val">Check Runway & Departure</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Emergency Brief</div><div class="ck-val red">Brief</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Pattern Check</div><div class="ck-val green">Check</div></div></div>
         </div>
       </div>
     </div>
 
     <div class="sec-card" data-sec="s7">
-      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">🛬 Landing</div><div class="sec-meta"><span id="sp-s7">0/11</span><span class="sec-toggle">▼</span></div></div>
+      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">🚀 Climb</div><div class="sec-meta"><span id="sp-s7">0/5</span><span class="sec-toggle">▼</span></div></div>
       <div class="sec-body">
         <div id="checks-s7">
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Selector</div><div class="ck-val red">LEFT</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Pump</div><div class="ck-val green">ON</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Carb Heat</div><div class="ck-val green">ON</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Approach Speed</div><div class="ck-val">59 kts</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Flaps</div><div class="ck-val">15°</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Landing Lights</div><div class="ck-val green">ON</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Final Flaps</div><div class="ck-val">30–50°</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Final Airspeed</div><div class="ck-val">48 kts</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Carb Heat on Final</div><div class="ck-val red">OFF</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Post Landing — Fuel Pump</div><div class="ck-val red">OFF</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Post Landing — Flaps / XPDR</div><div class="ck-val">0° / STBY</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Throttle</div><div class="ck-val">FULL (5500-5200 RPM)</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Airspeed</div><div class="ck-val">VX - 56 KIAS</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Airspeed</div><div class="ck-val">VY - 65 KIAS</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Flaps</div><div class="ck-val">At 400 ft AGL — Up Position</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Engine Instruments</div><div class="ck-val">Check</div></div></div>
         </div>
       </div>
     </div>
 
     <div class="sec-card" data-sec="s8">
-      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">⏹ Shut Down</div><div class="sec-meta"><span id="sp-s8">0/10</span><span class="sec-toggle">▼</span></div></div>
+      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">🛩 Cruise Level</div><div class="sec-meta"><span id="sp-s8">0/5</span><span class="sec-toggle">▼</span></div></div>
       <div class="sec-body">
         <div id="checks-s8">
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Throttle</div><div class="ck-val">IDLE</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Avionics</div><div class="ck-val red">OFF</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Other Electrical</div><div class="ck-val red">OFF</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Outside Lights</div><div class="ck-val red">OFF</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Ignition Key</div><div class="ck-val red">OFF (1 seg)</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Beacon</div><div class="ck-val red">OFF</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Master</div><div class="ck-val red">OFF</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Selector</div><div class="ck-val red">OFF</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Canopy</div><div class="ck-val">Cerrada</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Pitot Tube</div><div class="ck-val">Enfundado</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Throttle</div><div class="ck-val">4500 RPM</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Landing Light</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Pump</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Quantity</div><div class="ck-val">Check</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Engine Instruments</div><div class="ck-val">Check</div></div></div>
         </div>
       </div>
     </div>
 
-    <div style="padding:10px 12px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);border-radius:8px;margin-bottom:10px;font-size:0.84rem;color:#991b1b;line-height:1.55">
-      <strong>⚠ NOTA 1:</strong> Mantener despejado entre asientos — cinturones no deben interferir flaps.<br>
-      <strong>⚠ NOTA 2:</strong> Siempre despegar y aterrizar con selector de combustible en <strong>LEFT</strong>.
+    <div class="sec-card" data-sec="s9">
+      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">📉 Descent</div><div class="sec-meta"><span id="sp-s9">0/3</span><span class="sec-toggle">▼</span></div></div>
+      <div class="sec-body">
+        <div id="checks-s9">
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Throttle</div><div class="ck-val">As Required</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Trim</div><div class="ck-val">As Required</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Carb Heat</div><div class="ck-val green">ON</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-card" data-sec="s10">
+      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">🛬 Pre Landing</div><div class="sec-meta"><span id="sp-s10">0/9</span><span class="sec-toggle">▼</span></div></div>
+      <div class="sec-body">
+        <div id="checks-s10">
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Approach Speed</div><div class="ck-val">65 - 55 KIAS</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Flaps</div><div class="ck-val">15 deg</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Trim</div><div class="ck-val">As Required</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Selector</div><div class="ck-val red">Left or Fullest</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Carb Heat</div><div class="ck-val green">ON</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Pump</div><div class="ck-val green">ON</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Landing Light</div><div class="ck-val green">ON</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Engine Instruments</div><div class="ck-val">Check</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Seat Belts</div><div class="ck-val">ON</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-card" data-sec="s11">
+      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">🎯 Landing Approach</div><div class="sec-meta"><span id="sp-s11">0/6</span><span class="sec-toggle">▼</span></div></div>
+      <div class="sec-body">
+        <div id="checks-s11">
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Flaps</div><div class="ck-val">As Required</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Airspeed</div><div class="ck-val">52 - 55 KIAS</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Trim</div><div class="ck-val">As Required</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Carb Heat</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Landing Profile</div><div class="ck-val">STABILIZE!</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Switch Fuel Reminder</div><div class="ck-val">Inhibit</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-card" data-sec="s12">
+      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">🔄 Go Around</div><div class="sec-meta"><span id="sp-s12">0/4</span><span class="sec-toggle">▼</span></div></div>
+      <div class="sec-body">
+        <div id="checks-s12">
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Throttle</div><div class="ck-val">FULL (5500-5200 RPM)</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Flaps</div><div class="ck-val">Rise up to 15 deg</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Speed</div><div class="ck-val">VX - 56 KIAS</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Continue with Climb Checklist</div><div class="ck-val">→</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-card" data-sec="s13">
+      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">🅿️ Post Landing</div><div class="sec-meta"><span id="sp-s13">0/3</span><span class="sec-toggle">▼</span></div></div>
+      <div class="sec-body">
+        <div id="checks-s13">
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Pump</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Flaps</div><div class="ck-val">Up Position Set</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">XPNDR</div><div class="ck-val orange">Standby (Menu&gt;XPNDR)</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-card" data-sec="s14">
+      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">⏹ Shut Down</div><div class="sec-meta"><span id="sp-s14">0/9</span><span class="sec-toggle">▼</span></div></div>
+      <div class="sec-body">
+        <div id="checks-s14">
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Throttle</div><div class="ck-val">Idle</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Avionics</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Other Electrical</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Exterior Lights</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Ignition Key</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Beacon Light</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Master</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Selector</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Ignition Key</div><div class="ck-val red">Remove</div></div></div>
+        </div>
+      </div>
     </div>
 
   </div><!-- end cl-normal -->
@@ -506,77 +583,91 @@ window.addEventListener('load', () => {
     <div style="padding:10px 14px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);border-radius:8px;margin-bottom:12px;font-size:0.83rem;color:#991b1b">🚨 Mantén el control de la aeronave. Estos son procedimientos de referencia.</div>
 
     <div class="sec-card emg" data-sec="e1">
-      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">⚠️ Engine Failure — Take Off</div><div class="sec-meta"><span id="sp-e1">0/7</span><span class="sec-toggle">▼</span></div></div>
+      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">⚠️ Engine Failure During Take Off</div><div class="sec-meta"><span id="sp-e1">0/7</span><span class="sec-toggle">▼</span></div></div>
       <div class="sec-body">
         <div id="checks-e1">
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Airspeed (15° flap)</div><div class="ck-val red">55 Kts</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Airspeed (0° flap)</div><div class="ck-val red">59 Kts</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Throttle</div><div class="ck-val red">IDLE</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Flaps</div><div class="ck-val red">As needed</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Airspeed</div><div class="ck-val red">55 kt (Flap pos 1)</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Airspeed</div><div class="ck-val red">59 kt (No Flap)</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Throttle</div><div class="ck-val red">Idle</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Flaps</div><div class="ck-val red">As Required</div></div></div>
           <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Selector</div><div class="ck-val red">OFF</div></div></div>
           <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Ignition</div><div class="ck-val red">OFF</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Master / Canopy</div><div class="ck-val red">OFF / UNLOCK</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Master</div><div class="ck-val red">OFF</div></div></div>
         </div>
       </div>
     </div>
 
     <div class="sec-card emg" data-sec="e2">
-      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">✈️ Engine Failure — In Flight</div><div class="sec-meta"><span id="sp-e2">0/8</span><span class="sec-toggle">▼</span></div></div>
+      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">✈️ Engine Failure in Flight</div><div class="sec-meta"><span id="sp-e2">0/8</span><span class="sec-toggle">▼</span></div></div>
       <div class="sec-body">
         <div id="checks-e2">
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Vglide</div><div class="ck-val red">59 KIAS</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Heading</div><div class="ck-val red">Emergency landing site</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Pump</div><div class="ck-val red">ON</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Selector</div><div class="ck-val red">Check tanks</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Carb Heat</div><div class="ck-val red">ON (pull)</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Throttle</div><div class="ck-val">Back, IDLE</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Ignition</div><div class="ck-val red">START</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Choke</div><div class="ck-val">As needed</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Glide Speed</div><div class="ck-val red">59 kt (No Flap)</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Best Place</div><div class="ck-val red">Landing Place</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Selector</div><div class="ck-val red">Fullest</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Carb Heat</div><div class="ck-val red">On</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Pump</div><div class="ck-val red">On</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Throttle</div><div class="ck-val red">Idle</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Ignition</div><div class="ck-val red">Start</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Choke</div><div class="ck-val red">As Required</div></div></div>
         </div>
       </div>
     </div>
 
     <div class="sec-card emg" data-sec="e3">
-      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">🔴 Engine Power Off — Landing</div><div class="sec-meta"><span id="sp-e3">0/10</span><span class="sec-toggle">▼</span></div></div>
+      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">🔴 Engine Power Off Landing</div><div class="sec-meta"><span id="sp-e3">0/11</span><span class="sec-toggle">▼</span></div></div>
       <div class="sec-body">
         <div id="checks-e3">
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">MAYDAY</div><div class="ck-val red">121.50 MHz</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Vglide</div><div class="ck-val red">59 KIAS</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Short Final</div><div class="ck-val red">48 kts</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Flaps</div><div class="ck-val red">50°</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Throttle</div><div class="ck-val red">OFF</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Pump</div><div class="ck-val red">OFF</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Master</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Mayday</div><div class="ck-val red">On 121.5 Mhz</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Airspeed</div><div class="ck-val red">55 kt (Flap pos 1)</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Airspeed</div><div class="ck-val red">59 kt (No Flap)</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Short Final</div><div class="ck-val red">Full Flap</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Airspeed</div><div class="ck-val red">52 - 55 kt</div></div></div>
           <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Selector</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Throttle</div><div class="ck-val red">Idle</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Pump</div><div class="ck-val red">OFF</div></div></div>
           <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Ignition</div><div class="ck-val red">OFF</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Canopy</div><div class="ck-val red">UNLOCK</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Master</div><div class="ck-val red">As Required then OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Canopy</div><div class="ck-val red">Unlock</div></div></div>
         </div>
       </div>
     </div>
 
     <div class="sec-card emg" data-sec="e4">
-      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">🔥 Engine Fire — Ground / Flight</div><div class="sec-meta"><span id="sp-e4">0/6</span><span class="sec-toggle">▼</span></div></div>
+      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">🔥 Engine Fire on Ground</div><div class="sec-meta"><span id="sp-e4">0/5</span><span class="sec-toggle">▼</span></div></div>
       <div class="sec-body">
         <div id="checks-e4">
           <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Selector</div><div class="ck-val red">OFF</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Throttle</div><div class="ck-val red">FULL</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Ignition</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Brakes</div><div class="ck-val red">Full</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Throttle</div><div class="ck-val red">Full</div></div></div>
           <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Master</div><div class="ck-val red">OFF</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">En vuelo: Vents</div><div class="ck-val red">CLOSED</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Extinguisher / Action</div><div class="ck-val red">USE / Emergency landing</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fire Extinguisher</div><div class="ck-val red">USE</div></div></div>
         </div>
       </div>
     </div>
 
     <div class="sec-card emg" data-sec="e5">
-      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">⚡ Electrical Fire — In Flight</div><div class="sec-meta"><span id="sp-e5">0/4</span><span class="sec-toggle">▼</span></div></div>
+      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">🔥 Engine Fire in Flight</div><div class="sec-meta"><span id="sp-e5">0/5</span><span class="sec-toggle">▼</span></div></div>
       <div class="sec-body">
         <div id="checks-e5">
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fuel Selector</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Throttle</div><div class="ck-val red">Full</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Ignition</div><div class="ck-val red">OFF</div></div></div>
           <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Master</div><div class="ck-val red">OFF</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Vents</div><div class="ck-val red">OPEN</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Extinguisher</div><div class="ck-val red">USE</div></div></div>
-          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Action</div><div class="ck-val red">LAND</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Air Vents</div><div class="ck-val red">Closed</div></div></div>
         </div>
+        <div style="margin-top:10px;padding:8px 10px;background:rgba(239,68,68,0.1);border-left:3px solid var(--red);border-radius:0 4px 4px 0;font-size:0.82rem;color:#991b1b">→ Check Engine Power OFF Landing</div>
+      </div>
+    </div>
+
+    <div class="sec-card emg" data-sec="e6">
+      <div class="sec-head" onclick="toggleSec(this)"><div class="sec-title">⚡ Electrical Fire in Flight</div><div class="sec-meta"><span id="sp-e6">0/3</span><span class="sec-toggle">▼</span></div></div>
+      <div class="sec-body">
+        <div id="checks-e6">
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Master Switch</div><div class="ck-val red">OFF</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Vents</div><div class="ck-val red">Open</div></div></div>
+          <div class="check-item" onclick="ck(this)"><div class="chk-box">✓</div><div><div class="ck-label">Fire Extinguisher</div><div class="ck-val red">As Required</div></div></div>
+        </div>
+        <div style="margin-top:10px;padding:8px 10px;background:rgba(239,68,68,0.1);border-left:3px solid var(--red);border-radius:0 4px 4px 0;font-size:0.82rem;color:#991b1b">→ Check Engine Power OFF Landing</div>
       </div>
     </div>
   </div><!-- end cl-emg -->
